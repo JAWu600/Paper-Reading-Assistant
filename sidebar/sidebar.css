@@ -1,0 +1,204 @@
+/* 侧边栏功能模块样式 */
+
+/* 标题区域 */
+.pra-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* 表单组 */
+.pra-form-group {
+  margin-bottom: 16px;
+}
+
+.pra-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* 输入框 */
+.pra-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.pra-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 文本域 */
+.pra-textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: vertical;
+  transition: border-color 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.pra-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 下拉选择框 */
+.pra-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.pra-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 按钮 */
+.pra-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.pra-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.pra-btn-primary:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: translateY(-1px);
+}
+
+.pra-btn-primary:active {
+  transform: translateY(0);
+}
+
+.pra-btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #e0e0e0;
+}
+
+.pra-btn-secondary:hover {
+  background: #e8e8e8;
+}
+
+/* 结果框 */
+.pra-result-box {
+  min-height: 80px;
+  padding: 12px;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.pra-result-box .pra-success {
+  color: #333;
+}
+
+.pra-result-box .pra-error {
+  color: #e74c3c;
+}
+
+.pra-result-box .pra-loading {
+  color: #667eea;
+  font-style: italic;
+}
+
+/* 行列布局 */
+.pra-row {
+  display: flex;
+  gap: 12px;
+}
+
+.pra-col {
+  flex: 1;
+}
+
+/* 历史记录 */
+.pra-history-section {
+  margin-top: 20px;
+}
+
+.pra-history-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.pra-empty-history {
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.pra-history-item {
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  border-left: 3px solid #667eea;
+}
+
+.pra-history-question {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.pra-history-answer {
+  color: #666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* 滚动条美化 */
+.pra-result-box::-webkit-scrollbar,
+.pra-history-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pra-result-box::-webkit-scrollbar-thumb,
+.pra-history-list::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.pra-result-box::-webkit-scrollbar-thumb:hover,
+.pra-history-list::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
+}
