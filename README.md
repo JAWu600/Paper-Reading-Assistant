@@ -38,7 +38,7 @@
 
 1. 下载本项目源码并解压
    ```bash
-   git clone https://github.com/your-username/paper-reading-assistant.git
+   git clone https://github.com/JAWu600/Paper-Reading-Assistant.git
    ```
 
 2. 打开 Edge 浏览器，访问 `edge://extensions/`
