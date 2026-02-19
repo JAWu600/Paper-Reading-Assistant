@@ -1,0 +1,146 @@
+{
+  "extensionName": {
+    "message": "Paper精读全能助手",
+    "description": "扩展的名称，显示在浏览器工具栏和扩展管理页面"
+  },
+  "extensionDescription": {
+    "message": "学术论文精读全能助手，提供文本翻译、AI文献解读、引用生成三大核心功能",
+    "description": "扩展的详细描述，显示在扩展管理页面和Edge商店"
+  },
+  "browserActionTitle": {
+    "message": "Paper精读全能助手",
+    "description": "浏览器工具栏按钮的悬停提示文本"
+  },
+  "sidebarTitle": {
+    "message": "📚 Paper精读全能助手",
+    "description": "侧边栏标题"
+  },
+  "featureTranslate": {
+    "message": "文本翻译",
+    "description": "翻译功能标签名称"
+  },
+  "featureQA": {
+    "message": "AI文献解读",
+    "description": "AI问答功能标签名称"
+  },
+  "featureCitation": {
+    "message": "引用",
+    "description": "引用生成功能标签名称"
+  },
+  "translateLabel": {
+    "message": "🌐 文本翻译",
+    "description": "翻译功能标题"
+  },
+  "translateProvider": {
+    "message": "翻译服务",
+    "description": "翻译服务选择标签"
+  },
+  "sourceLanguage": {
+    "message": "源语言",
+    "description": "源语言选择标签"
+  },
+  "targetLanguage": {
+    "message": "目标语言",
+    "description": "目标语言选择标签"
+  },
+  "translateButton": {
+    "message": "翻译",
+    "description": "翻译按钮文本"
+  },
+  "translateResult": {
+    "message": "翻译结果",
+    "description": "翻译结果标签"
+  },
+  "copyResult": {
+    "message": "📋 复制翻译结果",
+    "description": "复制翻译结果按钮文本"
+  },
+  "qaLabel": {
+    "message": "🤖 AI文献解读",
+    "description": "AI问答功能标题"
+  },
+  "selectModel": {
+    "message": "🧠 选择AI模型",
+    "description": "模型选择标签"
+  },
+  "selectProvider": {
+    "message": "-- 选择服务商 --",
+    "description": "服务商选择默认选项"
+  },
+  "selectModelDefault": {
+    "message": "-- 先选择服务商 --",
+    "description": "模型选择默认选项"
+  },
+  "yourQuestion": {
+    "message": "❓ 你的问题",
+    "description": "问题输入标签"
+  },
+  "questionPlaceholder": {
+    "message": "请输入你的问题...\n\n例如：这篇论文的主要贡献是什么？",
+    "description": "问题输入框占位符"
+  },
+  "askButton": {
+    "message": "🚀 提问",
+    "description": "提问按钮文本"
+  },
+  "aiAnswer": {
+    "message": "💡 AI回答",
+    "description": "AI回答标签"
+  },
+  "historyTitle": {
+    "message": "💬 历史对话",
+    "description": "历史对话标题"
+  },
+  "noHistory": {
+    "message": "暂无历史对话",
+    "description": "无历史对话提示"
+  },
+  "citationLabel": {
+    "message": "📝 引用",
+    "description": "引用功能标题"
+  },
+  "fetchPaper": {
+    "message": "🔍 自动识别并获取文献",
+    "description": "获取文献按钮文本"
+  },
+  "paperTitle": {
+    "message": "文献标题",
+    "description": "文献标题标签"
+  },
+  "citationStyle": {
+    "message": "引用格式",
+    "description": "引用格式选择标签"
+  },
+  "citationResult": {
+    "message": "引用结果",
+    "description": "引用结果标签"
+  },
+  "copyCitation": {
+    "message": "📋 复制引用",
+    "description": "复制引用按钮文本"
+  },
+  "apiSettings": {
+    "message": "⚙️ API设置",
+    "description": "API设置标题"
+  },
+  "saveButton": {
+    "message": "保存",
+    "description": "保存按钮文本"
+  },
+  "clearButton": {
+    "message": "清除",
+    "description": "清除按钮文本"
+  },
+  "configured": {
+    "message": "✅ 已配置",
+    "description": "已配置状态"
+  },
+  "notConfigured": {
+    "message": "未配置",
+    "description": "未配置状态"
+  },
+  "versionLabel": {
+    "message": "Version 1.0.0",
+    "description": "版本号显示"
+  }
+}
