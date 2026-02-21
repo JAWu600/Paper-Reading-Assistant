@@ -212,6 +212,7 @@ Supported Models:
 
 ## <4> 项目结构 Project Structure
 
+```
 paper-reading-assistant/
 ├── manifest.json              # 扩展配置文件 / Extension configuration file
 ├── background.js              # 后台服务脚本 / Background service script
@@ -239,6 +240,7 @@ paper-reading-assistant/
 │   ├── AI-QA.png              # AI问答截图 / AI Q&A screenshot
 │   └── citation.png           # 引用功能截图 / Citation feature screenshot
 └── README.md                  # 说明文档 / Documentation
+```
 
 ---
 
