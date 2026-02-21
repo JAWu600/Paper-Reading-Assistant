@@ -142,5 +142,425 @@
   "versionLabel": {
     "message": "Version 1.0.0",
     "description": "版本号显示"
+  },
+  "selectTextFirst": {
+    "message": "请先在页面上选中需要翻译的文本，然后点击\"翻译\"按钮",
+    "description": "翻译前选中文本的提示"
+  },
+  "translationResultPlaceholder": {
+    "message": "翻译结果将显示在这里...",
+    "description": "翻译结果占位符"
+  },
+  "selectTextError": {
+    "message": "请先在页面上选择需要翻译的文本",
+    "description": "未选中文本时的错误提示"
+  },
+  "textTooLongError": {
+    "message": "选中文本过长，请减少到5000字以内",
+    "description": "文本过长错误提示"
+  },
+  "translating": {
+    "message": "翻译中...",
+    "description": "翻译中状态"
+  },
+  "translationFailed": {
+    "message": "翻译失败",
+    "description": "翻译失败提示"
+  },
+  "copied": {
+    "message": "✅ 已复制",
+    "description": "已复制确认"
+  },
+  "googleTranslate": {
+    "message": "Google翻译",
+    "description": "Google翻译服务名称"
+  },
+  "bingTranslate": {
+    "message": "Bing翻译",
+    "description": "Bing翻译服务名称"
+  },
+  "libreTranslate": {
+    "message": "LibreTranslate（免费开源）",
+    "description": "LibreTranslate服务名称"
+  },
+  "autoDetect": {
+    "message": "自动检测",
+    "description": "自动检测语言"
+  },
+  "languageZh": {
+    "message": "中文",
+    "description": "中文名称"
+  },
+  "languageEn": {
+    "message": "英语",
+    "description": "英语名称"
+  },
+  "loading": {
+    "message": "正在加载...",
+    "description": "加载状态"
+  },
+  "selectProviderFirst": {
+    "message": "-- 先选择服务商 --",
+    "description": "模型选择默认选项"
+  },
+  "selectModelPlaceholder": {
+    "message": "-- 选择模型 --",
+    "description": "模型选择占位符"
+  },
+  "noModels": {
+    "message": "无可用模型",
+    "description": "无可用模型提示"
+  },
+  "recommended": {
+    "message": "(推荐)",
+    "description": "推荐标签"
+  },
+  "notConfiguredShort": {
+    "message": "(未配置)",
+    "description": "未配置状态（短）"
+  },
+  "configureAPIKey": {
+    "message": "⚠️ 请在设置中配置API Key",
+    "description": "配置API Key提示"
+  },
+  "configuredServices": {
+    "message": "✅ 已配置 {count} 个服务",
+    "description": "已配置服务数量"
+  },
+  "pleaseSelectAIProvider": {
+    "message": "⚠️ 请先选择AI服务商",
+    "description": "选择服务商提示"
+  },
+  "pleaseSelectAIModel": {
+    "message": "⚠️ 请选择具体的AI模型",
+    "description": "选择模型提示"
+  },
+  "pleaseEnterQuestion": {
+    "message": "⚠️ 请输入你的问题",
+    "description": "输入问题提示"
+  },
+  "thinking": {
+    "message": "🤔 思考中...",
+    "description": "AI思考中状态"
+  },
+  "askFailed": {
+    "message": "❌ 提问失败",
+    "description": "提问失败"
+  },
+  "networkError": {
+    "message": "❌ 网络错误",
+    "description": "网络错误"
+  },
+  "pleaseSelectModelAndQuestion": {
+    "message": "请先选择AI模型并输入问题...",
+    "description": "选择模型并输入问题提示"
+  },
+  "copy": {
+    "message": "📋 复制",
+    "description": "复制按钮"
+  },
+  "retry": {
+    "message": "🔄 重试",
+    "description": "重试按钮"
+  },
+  "clearHistory": {
+    "message": "🗑️",
+    "description": "清空历史按钮"
+  },
+  "apiSettingsIntro": {
+    "message": "💡 配置API Key后即可使用对应的AI服务。以下服务均提供免费额度：",
+    "description": "API设置介绍"
+  },
+  "getFreeAPIKey": {
+    "message": "获取免费API Key →",
+    "description": "获取API Key链接"
+  },
+  "apiKeyLocalOnly": {
+    "message": "🔒 API Key仅存储在本地浏览器中，不会上传到任何服务器",
+    "description": "API Key安全说明"
+  },
+  "recommendGroq": {
+    "message": "📌 推荐使用 <strong>Groq</strong>，速度快且免费额度充足",
+    "description": "推荐Groq说明"
+  },
+  "enterAPIKey": {
+    "message": "输入API Key",
+    "description": "输入API Key占位符"
+  },
+  "save": {
+    "message": "保存",
+    "description": "保存按钮"
+  },
+  "saving": {
+    "message": "保存中...",
+    "description": "保存中状态"
+  },
+  "saveFailed": {
+    "message": "保存失败",
+    "description": "保存失败"
+  },
+  "confirmClearKey": {
+    "message": "确定要清除该API Key吗？",
+    "description": "确认清除API Key"
+  },
+  "confirmClearHistory": {
+    "message": "确定要清空所有历史对话吗？",
+    "description": "确认清空历史"
+  },
+  "clear": {
+    "message": "清除",
+    "description": "清除按钮"
+  },
+  "pleaseEnterAPIKey": {
+    "message": "请输入API Key",
+    "description": "请输入API Key提示"
+  },
+  "autoIdentifyPaper": {
+    "message": "自动识别页面DOI，获取文献信息并生成引用",
+    "description": "自动识别文献说明"
+  },
+  "identifying": {
+    "message": "⏳ 正在识别...",
+    "description": "正在识别状态"
+  },
+  "reIdentifyPaper": {
+    "message": "🔍 重新识别文献",
+    "description": "重新识别文献按钮"
+  },
+  "unknownTitle": {
+    "message": "未知标题",
+    "description": "未知标题"
+  },
+  "generatingCitation": {
+    "message": "⏳ 正在生成引用格式...",
+    "description": "正在生成引用"
+  },
+  "citationFormatFailed": {
+    "message": "获取失败",
+    "description": "获取引用格式失败"
+  },
+  "citationFormatUnavailable": {
+    "message": "无法获取该格式的引用",
+    "description": "无法获取引用格式"
+  },
+  "pleaseGetValidCitation": {
+    "message": "请先获取有效的引用内容",
+    "description": "请先获取有效引用"
+  },
+  "copiedToClipboard": {
+    "message": "已复制到剪贴板",
+    "description": "已复制到剪贴板"
+  },
+  "copyFailed": {
+    "message": "复制失败",
+    "description": "复制失败"
+  },
+  "copyCitationResult": {
+    "message": "📋 复制翻译结果",
+    "description": "复制翻译结果按钮"
+  },
+  "groqProvider": {
+    "message": "Groq（需梯子）",
+    "description": "Groq服务商名称"
+  },
+  "huggingfaceProvider": {
+    "message": "Hugging Face（需梯子）",
+    "description": "Hugging Face服务商名称"
+  },
+  "highPerformanceModel": {
+    "message": "高性能模型",
+    "description": "高性能模型描述"
+  },
+  "lightweightFast": {
+    "message": "轻量快速",
+    "description": "轻量快速描述"
+  },
+  "qwenModel": {
+    "message": "通义千问",
+    "description": "通义千问描述"
+  },
+  "openSourceModel": {
+    "message": "OpenAI开源",
+    "description": "OpenAI开源描述"
+  },
+  "alibabaModel": {
+    "message": "阿里大模型",
+    "description": "阿里大模型描述"
+  },
+  "metaOpenSource": {
+    "message": "Meta开源",
+    "description": "Meta开源描述"
+  },
+  "deepSeekModel": {
+    "message": "DeepSeek大模型",
+    "description": "DeepSeek大模型描述"
+  },
+  "fastInferenceFree": {
+    "message": "高速推理，免费使用",
+    "description": "高速推理免费使用描述"
+  },
+  "richOpenSourceModels": {
+    "message": "开源模型丰富",
+    "description": "开源模型丰富描述"
+  },
+  "paperReadingAssistantInstalled": {
+    "message": "Paper精读全能助手已安装",
+    "description": "扩展安装提示"
+  },
+  "configureAPIFirst": {
+    "message": "请先在设置中配置至少一个 AI 服务的 API Key",
+    "description": "请先配置API Key"
+  },
+  "configureProviderAPI": {
+    "message": "请先在设置中配置 {provider} 的 API Key",
+    "description": "请先配置服务商API Key"
+  },
+  "providerBusy": {
+    "message": "{provider} 服务繁忙，请稍后重试",
+    "description": "服务商繁忙"
+  },
+  "apiKeyInvalid": {
+    "message": "{provider} API Key 无效或已过期，请检查设置",
+    "description": "API Key无效"
+  },
+  "modelNotFound": {
+    "message": "{provider} 模型不存在或已下线，请尝试其他模型",
+    "description": "模型不存在"
+  },
+  "rateLimitExceeded": {
+    "message": "{provider} 已达到调用次数上限，请稍后再试或更换其他模型",
+    "description": "达到调用上限"
+  },
+  "tooManyRequests": {
+    "message": "{provider} 请求过于频繁，请稍后再试",
+    "description": "请求过于频繁"
+  },
+  "providerCallFailed": {
+    "message": "{provider} 调用失败",
+    "description": "服务商调用失败"
+  },
+  "unsupportedTranslationService": {
+    "message": "不支持的翻译服务",
+    "description": "不支持的翻译服务"
+  },
+  "doiEmpty": {
+    "message": "DOI不能为空",
+    "description": "DOI为空错误"
+  },
+  "paperNotFound": {
+    "message": "未找到该文献",
+    "description": "未找到文献"
+  },
+  "crossrefRateLimit": {
+    "message": "Crossref API请求过于频繁，请稍后再试",
+    "description": "Crossref请求频繁"
+  },
+  "doiFormatError": {
+    "message": "请求参数错误。DOI格式不正确",
+    "description": "DOI格式错误"
+  },
+  "getMetadataFailed": {
+    "message": "获取文献元数据失败",
+    "description": "获取元数据失败"
+  },
+  "emptyPaperData": {
+    "message": "返回的文献数据为空",
+    "description": "文献数据为空"
+  },
+  "unsupportedCitationFormat": {
+    "message": "不支持的引用格式",
+    "description": "不支持的引用格式"
+  },
+  "doiNotFound": {
+    "message": "未找到该DOI，请检查DOI是否有效",
+    "description": "DOI未找到"
+  },
+  "citationFormatUnsupported": {
+    "message": "Crossref不支持该引用格式",
+    "description": "引用格式不支持"
+  },
+  "citationFetchFailed": {
+    "message": "引用获取失败，请稍后重试",
+    "description": "引用获取失败"
+  },
+  "cannotExtractDOI": {
+    "message": "无法从当前页面提取DOI。请确保页面包含文献的DOI信息。",
+    "description": "无法提取DOI"
+  },
+  "apaFormat": {
+    "message": "APA格式",
+    "description": "APA格式名称"
+  },
+  "mlaFormat": {
+    "message": "MLA格式",
+    "description": "MLA格式名称"
+  },
+  "chicagoFormat": {
+    "message": "Chicago格式",
+    "description": "Chicago格式名称"
+  },
+  "harvardFormat": {
+    "message": "Harvard格式",
+    "description": "Harvard格式名称"
+  },
+  "ieeeFormat": {
+    "message": "IEEE格式",
+    "description": "IEEE格式名称"
+  },
+  "vancouverFormat": {
+    "message": "Vancouver格式",
+    "description": "Vancouver格式名称"
+  },
+  "bibtexFormat": {
+    "message": "BibTeX格式",
+    "description": "BibTeX格式名称"
+  },
+  "copyTranslationResult": {
+    "message": "📋 复制翻译结果",
+    "description": "复制翻译结果按钮"
+  },
+  "noAnswerReceived": {
+    "message": "未能获取回答",
+    "description": "未能获取AI回答"
+  },
+  "aiSystemPrompt": {
+    "message": "你是一个专业的学术论文解读助手。你的任务是：\n1. 准确理解用户提供的论文内容\n2. 用专业但易懂的语言回答问题\n3. 引用论文中的具体内容来支持你的回答\n4. 如果问题超出论文范围，请诚实告知\n5. 回答要简洁明了，突出重点\n\n请始终保持专业、客观的态度。",
+    "description": "AI系统提示词"
+  },
+  "paperContent": {
+    "message": "论文内容：",
+    "description": "论文内容标签"
+  },
+  "questionLabel": {
+    "message": "问题：",
+    "description": "问题标签"
+  },
+  "googleTranslateAPIError": {
+    "message": "Google翻译API请求失败",
+    "description": "Google翻译API错误"
+  },
+  "bingTranslateAPIError": {
+    "message": "Bing翻译API请求失败",
+    "description": "Bing翻译API错误"
+  },
+  "libreTranslateAPIError": {
+    "message": "LibreTranslate API请求失败",
+    "description": "LibreTranslate API错误"
+  },
+  "libreTranslateDataError": {
+    "message": "LibreTranslate返回数据格式错误",
+    "description": "LibreTranslate数据格式错误"
+  },
+  "themeToggle": {
+    "message": "切换主题",
+    "description": "主题切换按钮提示"
+  },
+  "lightMode": {
+    "message": "浅色模式",
+    "description": "浅色模式名称"
+  },
+  "darkMode": {
+    "message": "深色模式",
+    "description": "深色模式名称"
   }
 }

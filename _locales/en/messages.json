@@ -1,0 +1,566 @@
+{
+  "extensionName": {
+    "message": "Paper Reading Assistant",
+    "description": "Extension name displayed in browser toolbar and extension management page"
+  },
+  "extensionDescription": {
+    "message": "Academic paper reading assistant with text translation, AI Q&A, and citation generation",
+    "description": "Extension description displayed in extension management page and Edge store"
+  },
+  "browserActionTitle": {
+    "message": "Paper Reading Assistant",
+    "description": "Browser toolbar button hover tooltip"
+  },
+  "sidebarTitle": {
+    "message": "📚 Paper Reading Assistant",
+    "description": "Sidebar title"
+  },
+  "featureTranslate": {
+    "message": "Translation",
+    "description": "Translation feature tab name"
+  },
+  "featureQA": {
+    "message": "AI Q&A",
+    "description": "AI Q&A feature tab name"
+  },
+  "featureCitation": {
+    "message": "Citation",
+    "description": "Citation generation feature tab name"
+  },
+  "translateLabel": {
+    "message": "🌐 Text Translation",
+    "description": "Translation feature title"
+  },
+  "translateProvider": {
+    "message": "Translation Service",
+    "description": "Translation service selection label"
+  },
+  "sourceLanguage": {
+    "message": "Source Language",
+    "description": "Source language selection label"
+  },
+  "targetLanguage": {
+    "message": "Target Language",
+    "description": "Target language selection label"
+  },
+  "translateButton": {
+    "message": "Translate",
+    "description": "Translate button text"
+  },
+  "translateResult": {
+    "message": "Translation Result",
+    "description": "Translation result label"
+  },
+  "copyResult": {
+    "message": "📋 Copy Translation",
+    "description": "Copy translation result button text"
+  },
+  "qaLabel": {
+    "message": "🤖 AI Q&A",
+    "description": "AI Q&A feature title"
+  },
+  "selectModel": {
+    "message": "🧠 Select AI Model",
+    "description": "Model selection label"
+  },
+  "selectProvider": {
+    "message": "-- Select Provider --",
+    "description": "Provider selection default option"
+  },
+  "selectModelDefault": {
+    "message": "-- Select Provider First --",
+    "description": "Model selection default option"
+  },
+  "yourQuestion": {
+    "message": "❓ Your Question",
+    "description": "Question input label"
+  },
+  "questionPlaceholder": {
+    "message": "Enter your question...\n\nExample: What are the main contributions of this paper?",
+    "description": "Question input placeholder"
+  },
+  "askButton": {
+    "message": "🚀 Ask",
+    "description": "Ask button text"
+  },
+  "aiAnswer": {
+    "message": "💡 AI Response",
+    "description": "AI response label"
+  },
+  "historyTitle": {
+    "message": "💬 Conversation History",
+    "description": "Conversation history title"
+  },
+  "noHistory": {
+    "message": "No conversation history",
+    "description": "No history message"
+  },
+  "citationLabel": {
+    "message": "📝 Citation",
+    "description": "Citation feature title"
+  },
+  "fetchPaper": {
+    "message": "🔍 Auto-detect Paper",
+    "description": "Fetch paper button text"
+  },
+  "paperTitle": {
+    "message": "Paper Title",
+    "description": "Paper title label"
+  },
+  "citationStyle": {
+    "message": "Citation Style",
+    "description": "Citation style selection label"
+  },
+  "citationResult": {
+    "message": "Citation Result",
+    "description": "Citation result label"
+  },
+  "copyCitation": {
+    "message": "📋 Copy Citation",
+    "description": "Copy citation button text"
+  },
+  "apiSettings": {
+    "message": "⚙️ API Settings",
+    "description": "API settings title"
+  },
+  "saveButton": {
+    "message": "Save",
+    "description": "Save button text"
+  },
+  "clearButton": {
+    "message": "Clear",
+    "description": "Clear button text"
+  },
+  "configured": {
+    "message": "✅ Configured",
+    "description": "Configured status"
+  },
+  "notConfigured": {
+    "message": "Not Configured",
+    "description": "Not configured status"
+  },
+  "versionLabel": {
+    "message": "Version 1.0.0",
+    "description": "Version display"
+  },
+  "selectTextFirst": {
+    "message": "Please select text on the page first, then click the 'Translate' button",
+    "description": "Instruction to select text before translation"
+  },
+  "translationResultPlaceholder": {
+    "message": "Translation result will appear here...",
+    "description": "Translation result placeholder"
+  },
+  "selectTextError": {
+    "message": "Please select text on the page first",
+    "description": "Error message when no text selected"
+  },
+  "textTooLongError": {
+    "message": "Selected text is too long, please limit to 5000 characters",
+    "description": "Error message for text too long"
+  },
+  "translating": {
+    "message": "Translating...",
+    "description": "Translating status message"
+  },
+  "translationFailed": {
+    "message": "Translation failed",
+    "description": "Translation failed message"
+  },
+  "copied": {
+    "message": "✅ Copied",
+    "description": "Copied confirmation message"
+  },
+  "googleTranslate": {
+    "message": "Google Translate",
+    "description": "Google Translate service name"
+  },
+  "bingTranslate": {
+    "message": "Bing Translate",
+    "description": "Bing Translate service name"
+  },
+  "libreTranslate": {
+    "message": "LibreTranslate (Free Open Source)",
+    "description": "LibreTranslate service name"
+  },
+  "autoDetect": {
+    "message": "Auto Detect",
+    "description": "Auto detect language"
+  },
+  "languageZh": {
+    "message": "Chinese",
+    "description": "Chinese language name"
+  },
+  "languageEn": {
+    "message": "English",
+    "description": "English language name"
+  },
+  "loading": {
+    "message": "Loading...",
+    "description": "Loading status"
+  },
+  "selectProviderFirst": {
+    "message": "-- Select Provider First --",
+    "description": "Model selection default option"
+  },
+  "selectModelPlaceholder": {
+    "message": "-- Select Model --",
+    "description": "Model selection placeholder"
+  },
+  "noModels": {
+    "message": "No models available",
+    "description": "No models available message"
+  },
+  "recommended": {
+    "message": "(Recommended)",
+    "description": "Recommended tag"
+  },
+  "notConfiguredShort": {
+    "message": "(Not Configured)",
+    "description": "Not configured status (short)"
+  },
+  "configureAPIKey": {
+    "message": "⚠️ Please configure API Key in Settings",
+    "description": "Configure API Key prompt"
+  },
+  "configuredServices": {
+    "message": "✅ {count} service(s) configured",
+    "description": "Configured services count"
+  },
+  "pleaseSelectAIProvider": {
+    "message": "⚠️ Please select an AI provider first",
+    "description": "Select provider prompt"
+  },
+  "pleaseSelectAIModel": {
+    "message": "⚠️ Please select an AI model",
+    "description": "Select model prompt"
+  },
+  "pleaseEnterQuestion": {
+    "message": "⚠️ Please enter your question",
+    "description": "Enter question prompt"
+  },
+  "thinking": {
+    "message": "🤔 Thinking...",
+    "description": "AI thinking status"
+  },
+  "askFailed": {
+    "message": "❌ Ask failed",
+    "description": "Ask failed message"
+  },
+  "networkError": {
+    "message": "❌ Network error",
+    "description": "Network error"
+  },
+  "pleaseSelectModelAndQuestion": {
+    "message": "Please select an AI model and enter your question...",
+    "description": "Select model and enter question prompt"
+  },
+  "copy": {
+    "message": "📋 Copy",
+    "description": "Copy button"
+  },
+  "retry": {
+    "message": "🔄 Retry",
+    "description": "Retry button"
+  },
+  "clearHistory": {
+    "message": "🗑️",
+    "description": "Clear history button"
+  },
+  "apiSettingsIntro": {
+    "message": "💡 Configure API Key to use the corresponding AI service. The following services offer free tiers:",
+    "description": "API settings introduction"
+  },
+  "getFreeAPIKey": {
+    "message": "Get Free API Key →",
+    "description": "Get API Key link"
+  },
+  "apiKeyLocalOnly": {
+    "message": "🔒 API Key is stored locally in the browser and will not be uploaded to any server",
+    "description": "API Key security notice"
+  },
+  "recommendGroq": {
+    "message": "📌 Recommended: <strong>Groq</strong> - Fast and generous free tier",
+    "description": "Recommend Groq notice"
+  },
+  "enterAPIKey": {
+    "message": "Enter API Key",
+    "description": "Enter API Key placeholder"
+  },
+  "save": {
+    "message": "Save",
+    "description": "Save button"
+  },
+  "saving": {
+    "message": "Saving...",
+    "description": "Saving status"
+  },
+  "saveFailed": {
+    "message": "Save failed",
+    "description": "Save failed"
+  },
+  "confirmClearKey": {
+    "message": "Are you sure you want to clear this API Key?",
+    "description": "Confirm clear API Key"
+  },
+  "confirmClearHistory": {
+    "message": "Are you sure you want to clear all conversation history?",
+    "description": "Confirm clear history"
+  },
+  "clear": {
+    "message": "Clear",
+    "description": "Clear button"
+  },
+  "pleaseEnterAPIKey": {
+    "message": "Please enter API Key",
+    "description": "Please enter API Key prompt"
+  },
+  "autoIdentifyPaper": {
+    "message": "Auto-detect DOI from page and generate citation",
+    "description": "Auto identify paper description"
+  },
+  "identifying": {
+    "message": "⏳ Identifying...",
+    "description": "Identifying status"
+  },
+  "reIdentifyPaper": {
+    "message": "🔍 Re-identify Paper",
+    "description": "Re-identify paper button"
+  },
+  "unknownTitle": {
+    "message": "Unknown Title",
+    "description": "Unknown title"
+  },
+  "generatingCitation": {
+    "message": "⏳ Generating citation...",
+    "description": "Generating citation status"
+  },
+  "citationFormatFailed": {
+    "message": "Failed to get citation",
+    "description": "Get citation format failed"
+  },
+  "citationFormatUnavailable": {
+    "message": "Unable to get citation in this format",
+    "description": "Citation format unavailable"
+  },
+  "pleaseGetValidCitation": {
+    "message": "Please get valid citation content first",
+    "description": "Please get valid citation prompt"
+  },
+  "copiedToClipboard": {
+    "message": "Copied to clipboard",
+    "description": "Copied to clipboard"
+  },
+  "copyFailed": {
+    "message": "Copy failed",
+    "description": "Copy failed"
+  },
+  "copyCitationResult": {
+    "message": "📋 Copy Citation",
+    "description": "Copy citation result button"
+  },
+  "groqProvider": {
+    "message": "Groq",
+    "description": "Groq provider name"
+  },
+  "huggingfaceProvider": {
+    "message": "Hugging Face",
+    "description": "Hugging Face provider name"
+  },
+  "highPerformanceModel": {
+    "message": "High Performance Model",
+    "description": "High performance model description"
+  },
+  "lightweightFast": {
+    "message": "Lightweight & Fast",
+    "description": "Lightweight fast description"
+  },
+  "qwenModel": {
+    "message": "Qwen",
+    "description": "Qwen model description"
+  },
+  "openSourceModel": {
+    "message": "OpenAI Open Source",
+    "description": "OpenAI open source description"
+  },
+  "alibabaModel": {
+    "message": "Alibaba's Large Model",
+    "description": "Alibaba large model description"
+  },
+  "metaOpenSource": {
+    "message": "Meta Open Source",
+    "description": "Meta open source description"
+  },
+  "deepSeekModel": {
+    "message": "DeepSeek Large Model",
+    "description": "DeepSeek large model description"
+  },
+  "fastInferenceFree": {
+    "message": "Fast Inference, Free to Use",
+    "description": "Fast inference free description"
+  },
+  "richOpenSourceModels": {
+    "message": "Rich Open Source Models",
+    "description": "Rich open source models description"
+  },
+  "paperReadingAssistantInstalled": {
+    "message": "Paper Reading Assistant installed",
+    "description": "Extension installed message"
+  },
+  "configureAPIFirst": {
+    "message": "Please configure at least one AI service API Key in Settings first",
+    "description": "Configure API Key first prompt"
+  },
+  "configureProviderAPI": {
+    "message": "Please configure {provider} API Key in Settings first",
+    "description": "Configure provider API Key prompt"
+  },
+  "providerBusy": {
+    "message": "{provider} service is busy, please try again later",
+    "description": "Provider busy"
+  },
+  "apiKeyInvalid": {
+    "message": "{provider} API Key is invalid or expired, please check settings",
+    "description": "API Key invalid"
+  },
+  "modelNotFound": {
+    "message": "{provider} model not found or discontinued, please try another model",
+    "description": "Model not found"
+  },
+  "rateLimitExceeded": {
+    "message": "{provider} rate limit exceeded, please try again later or use another model",
+    "description": "Rate limit exceeded"
+  },
+  "tooManyRequests": {
+    "message": "{provider} too many requests, please try again later",
+    "description": "Too many requests"
+  },
+  "providerCallFailed": {
+    "message": "{provider} call failed",
+    "description": "Provider call failed"
+  },
+  "unsupportedTranslationService": {
+    "message": "Unsupported translation service",
+    "description": "Unsupported translation service"
+  },
+  "doiEmpty": {
+    "message": "DOI cannot be empty",
+    "description": "DOI empty error"
+  },
+  "paperNotFound": {
+    "message": "Paper not found",
+    "description": "Paper not found"
+  },
+  "crossrefRateLimit": {
+    "message": "Crossref API rate limit exceeded, please try again later",
+    "description": "Crossref rate limit"
+  },
+  "doiFormatError": {
+    "message": "Request parameter error. Invalid DOI format",
+    "description": "DOI format error"
+  },
+  "getMetadataFailed": {
+    "message": "Failed to get paper metadata",
+    "description": "Get metadata failed"
+  },
+  "emptyPaperData": {
+    "message": "Returned paper data is empty",
+    "description": "Empty paper data"
+  },
+  "unsupportedCitationFormat": {
+    "message": "Unsupported citation format",
+    "description": "Unsupported citation format"
+  },
+  "doiNotFound": {
+    "message": "DOI not found, please check if DOI is valid",
+    "description": "DOI not found"
+  },
+  "citationFormatUnsupported": {
+    "message": "Crossref does not support this citation format",
+    "description": "Citation format unsupported"
+  },
+  "citationFetchFailed": {
+    "message": "Citation fetch failed, please try again later",
+    "description": "Citation fetch failed"
+  },
+  "cannotExtractDOI": {
+    "message": "Cannot extract DOI from current page. Please make sure the page contains paper DOI information.",
+    "description": "Cannot extract DOI"
+  },
+  "apaFormat": {
+    "message": "APA Format",
+    "description": "APA format name"
+  },
+  "mlaFormat": {
+    "message": "MLA Format",
+    "description": "MLA format name"
+  },
+  "chicagoFormat": {
+    "message": "Chicago Format",
+    "description": "Chicago format name"
+  },
+  "harvardFormat": {
+    "message": "Harvard Format",
+    "description": "Harvard format name"
+  },
+  "ieeeFormat": {
+    "message": "IEEE Format",
+    "description": "IEEE format name"
+  },
+  "vancouverFormat": {
+    "message": "Vancouver Format",
+    "description": "Vancouver format name"
+  },
+  "bibtexFormat": {
+    "message": "BibTeX Format",
+    "description": "BibTeX format name"
+  },
+  "copyTranslationResult": {
+    "message": "📋 Copy Translation",
+    "description": "Copy translation result button"
+  },
+  "noAnswerReceived": {
+    "message": "No answer received",
+    "description": "No answer received from AI"
+  },
+  "aiSystemPrompt": {
+    "message": "You are a professional academic paper reading assistant. Your tasks are:\n1. Accurately understand the paper content provided by the user\n2. Answer questions in a professional yet accessible language\n3. Cite specific content from the paper to support your answers\n4. If the question is beyond the scope of the paper, please honestly inform the user\n5. Keep your answers concise and highlight key points\n\nPlease always maintain a professional and objective attitude.",
+    "description": "AI system prompt for paper Q&A"
+  },
+  "paperContent": {
+    "message": "Paper Content:",
+    "description": "Paper content label for AI prompt"
+  },
+  "questionLabel": {
+    "message": "Question: ",
+    "description": "Question label for AI prompt"
+  },
+  "googleTranslateAPIError": {
+    "message": "Google Translate API request failed",
+    "description": "Google Translate API error"
+  },
+  "bingTranslateAPIError": {
+    "message": "Bing Translate API request failed",
+    "description": "Bing Translate API error"
+  },
+  "libreTranslateAPIError": {
+    "message": "LibreTranslate API request failed",
+    "description": "LibreTranslate API error"
+  },
+  "libreTranslateDataError": {
+    "message": "LibreTranslate returned data format error",
+    "description": "LibreTranslate data format error"
+  },
+  "themeToggle": {
+    "message": "Toggle Theme",
+    "description": "Theme toggle button title"
+  },
+  "lightMode": {
+    "message": "Light Mode",
+    "description": "Light mode name"
+  },
+  "darkMode": {
+    "message": "Dark Mode",
+    "description": "Dark mode name"
+  }
+}
