@@ -3,12 +3,12 @@
  */
 export class TranslationFeature {
   constructor() {
-    this.name = '文本翻译';
+    this.name = chrome.i18n.getMessage('featureTranslate');
     // 翻译服务配置 - 可扩展
     this.translationProviders = [
-      { key: 'google', name: 'Google翻译' },
-      { key: 'bing', name: 'Bing翻译' },
-      { key: 'libre', name: 'LibreTranslate（免费开源）' }
+      { key: 'google', name: chrome.i18n.getMessage('googleTranslate') },
+      { key: 'bing', name: chrome.i18n.getMessage('bingTranslate') },
+      { key: 'libre', name: chrome.i18n.getMessage('libreTranslate') }
     ];
   }
 
@@ -23,33 +23,33 @@ export class TranslationFeature {
 
     // 支持的语言列表
     const languageOptions = [
-      { value: 'auto', name: '自动检测' },
-      { value: 'zh', name: '中文' },
-      { value: 'en', name: '英语' },
-      { value: 'ja', name: '日语' },
-      { value: 'ko', name: '韩语' },
-      { value: 'fr', name: '法语' },
-      { value: 'de', name: '德语' },
-      { value: 'ru', name: '俄语' },
-      { value: 'ar', name: '阿拉伯语' },
-      { value: 'es', name: '西班牙语' },
-      { value: 'pt', name: '葡萄牙语' },
-      { value: 'it', name: '意大利语' },
-      { value: 'nl', name: '荷兰语' },
-      { value: 'pl', name: '波兰语' },
-      { value: 'tr', name: '土耳其语' },
-      { value: 'vi', name: '越南语' },
-      { value: 'th', name: '泰语' },
-      { value: 'id', name: '印尼语' },
-      { value: 'hi', name: '印地语' },
-      { value: 'sv', name: '瑞典语' },
-      { value: 'da', name: '丹麦语' },
-      { value: 'fi', name: '芬兰语' },
-      { value: 'no', name: '挪威语' },
-      { value: 'el', name: '希腊语' },
-      { value: 'cs', name: '捷克语' },
-      { value: 'ro', name: '罗马尼亚语' },
-      { value: 'hu', name: '匈牙利语' }
+      { value: 'auto', name: chrome.i18n.getMessage('autoDetect') },
+      { value: 'zh', name: chrome.i18n.getMessage('languageZh') },
+      { value: 'en', name: chrome.i18n.getMessage('languageEn') },
+      { value: 'ja', name: '日本語' },
+      { value: 'ko', name: '한국어' },
+      { value: 'fr', name: 'Français' },
+      { value: 'de', name: 'Deutsch' },
+      { value: 'ru', name: 'Русский' },
+      { value: 'ar', name: 'العربية' },
+      { value: 'es', name: 'Español' },
+      { value: 'pt', name: 'Português' },
+      { value: 'it', name: 'Italiano' },
+      { value: 'nl', name: 'Nederlands' },
+      { value: 'pl', name: 'Polski' },
+      { value: 'tr', name: 'Türkçe' },
+      { value: 'vi', name: 'Tiếng Việt' },
+      { value: 'th', name: 'ไทย' },
+      { value: 'id', name: 'Bahasa Indonesia' },
+      { value: 'hi', name: 'हिन्दी' },
+      { value: 'sv', name: 'Svenska' },
+      { value: 'da', name: 'Dansk' },
+      { value: 'fi', name: 'Suomi' },
+      { value: 'no', name: 'Norsk' },
+      { value: 'el', name: 'Ελληνικά' },
+      { value: 'cs', name: 'Čeština' },
+      { value: 'ro', name: 'Română' },
+      { value: 'hu', name: 'Magyar' }
     ];
 
     // 生成语言选项（自动检测只在源语言中显示）
@@ -58,14 +58,14 @@ export class TranslationFeature {
 
     container.innerHTML = `
       <div class="pra-feature-panel active" data-feature="translate">
-        <div class="pra-section-title">🌐 文本翻译</div>
+        <div class="pra-section-title">${chrome.i18n.getMessage('translateLabel')}</div>
 
         <div class="pra-form-group" style="font-size: 13px; color: #666; margin-bottom: 16px;">
-          请先在页面上选中需要翻译的文本，然后点击"翻译"按钮
+          ${chrome.i18n.getMessage('selectTextFirst')}
         </div>
 
         <div class="pra-form-group">
-          <label class="pra-label">翻译服务</label>
+          <label class="pra-label">${chrome.i18n.getMessage('translateProvider')}</label>
           <select id="pra-translate-provider" class="pra-select">
             ${providerOptions}
           </select>
@@ -74,13 +74,13 @@ export class TranslationFeature {
         <div class="pra-form-group">
           <div class="pra-row">
             <div class="pra-col">
-              <label class="pra-label">源语言</label>
+              <label class="pra-label">${chrome.i18n.getMessage('sourceLanguage')}</label>
               <select id="pra-translate-from" class="pra-select">
                 ${fromLanguageOptions}
               </select>
             </div>
             <div class="pra-col">
-              <label class="pra-label">目标语言</label>
+              <label class="pra-label">${chrome.i18n.getMessage('targetLanguage')}</label>
               <select id="pra-translate-to" class="pra-select">
                 ${toLanguageOptions}
               </select>
@@ -89,13 +89,13 @@ export class TranslationFeature {
         </div>
 
         <button id="pra-translate-btn" class="pra-btn pra-btn-primary">
-          翻译
+          ${chrome.i18n.getMessage('translateButton')}
         </button>
 
         <div class="pra-form-group" style="margin-top: 16px;">
-          <label class="pra-label">翻译结果</label>
+          <label class="pra-label">${chrome.i18n.getMessage('translateResult')}</label>
           <div id="pra-translate-result" class="pra-result-box">
-            翻译结果将显示在这里...
+            ${chrome.i18n.getMessage('translationResultPlaceholder')}
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export class TranslationFeature {
           class="pra-btn pra-btn-secondary"
           style="display: none; margin-top: 12px;"
         >
-          📋 复制翻译结果
+          ${chrome.i18n.getMessage('copyTranslationResult')}
         </button>
       </div>
     `;
@@ -147,17 +147,17 @@ export class TranslationFeature {
     const resultBox = document.getElementById('pra-translate-result');
 
     if (!selectedText) {
-      resultBox.innerHTML = '<span class="pra-error">请先在页面上选择需要翻译的文本</span>';
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('selectTextError')}</span>`;
       return;
     }
 
     if (selectedText.length > 5000) {
-      resultBox.innerHTML = '<span class="pra-error">选中文本过长，请减少到5000字以内</span>';
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('textTooLongError')}</span>`;
       return;
     }
 
     // 显示加载状态
-    resultBox.innerHTML = '<span class="pra-loading">翻译中...</span>';
+    resultBox.innerHTML = `<span class="pra-loading">${chrome.i18n.getMessage('translating')}</span>`;
 
     try {
       // 调用翻译API
@@ -170,7 +170,7 @@ export class TranslationFeature {
       });
 
       if (response.error) {
-        resultBox.innerHTML = `<span class="pra-error">翻译失败: ${response.error}</span>`;
+        resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('translationFailed')}: ${response.error}</span>`;
         return;
       }
 
@@ -183,7 +183,7 @@ export class TranslationFeature {
         copyBtn.style.display = 'block';
       }
     } catch (error) {
-      resultBox.innerHTML = `<span class="pra-error">翻译失败: ${error.message}</span>`;
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('translationFailed')}: ${error.message}</span>`;
     }
   }
 
@@ -199,7 +199,7 @@ export class TranslationFeature {
 
       const copyBtn = document.getElementById('pra-translate-copy-btn');
       const originalText = copyBtn.textContent;
-      copyBtn.textContent = '✅ 已复制';
+      copyBtn.textContent = chrome.i18n.getMessage('copied');
       setTimeout(() => {
         copyBtn.textContent = originalText;
       }, 2000);
@@ -214,9 +214,9 @@ export class TranslationFeature {
       document.body.removeChild(textarea);
 
       const copyBtn = document.getElementById('pra-translate-copy-btn');
-      copyBtn.textContent = '✅ 已复制';
+      copyBtn.textContent = chrome.i18n.getMessage('copied');
       setTimeout(() => {
-        copyBtn.textContent = '📋 复制翻译结果';
+        copyBtn.textContent = chrome.i18n.getMessage('copyTranslationResult');
       }, 2000);
     }
   }

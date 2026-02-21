@@ -11,6 +11,7 @@ export class SidebarManager {
     this.FeatureRegistry = null;
     this.isVisible = false;
     this.currentFeature = null;
+    this.currentTheme = 'light'; // 默认浅色主题
   }
 
   /**
@@ -37,6 +38,9 @@ export class SidebarManager {
     this.tabManager = new this.TabManager(this.sidebar);
     this.featureRegistry = new this.FeatureRegistry();
 
+    // 加载保存的主题偏好
+    await this.loadTheme();
+
     // 注册所有功能
     await this.registerFeatures();
 
@@ -56,13 +60,14 @@ export class SidebarManager {
     this.sidebar.className = 'hidden';
     this.sidebar.innerHTML = `
       <div id="pra-sidebar-header">
+        <button id="pra-theme-btn" title="${chrome.i18n.getMessage('themeToggle')}">🌙</button>
         <button id="pra-close-btn">&times;</button>
-        <div id="pra-sidebar-title">📚 Paper精读全能助手</div>
+        <div id="pra-sidebar-title">${chrome.i18n.getMessage('sidebarTitle')}</div>
         <div id="pra-feature-tabs"></div>
       </div>
       <div id="pra-sidebar-content"></div>
       <div id="pra-sidebar-footer">
-        <div class="pra-footer-text">Version 1.0.0</div>
+        <div class="pra-footer-text">${chrome.i18n.getMessage('versionLabel')}</div>
       </div>
     `;
 
@@ -82,7 +87,7 @@ export class SidebarManager {
   async registerFeatures() {
     // 注册文本翻译功能
     this.featureRegistry.register('translate', {
-      name: '文本翻译',
+      name: chrome.i18n.getMessage('featureTranslate'),
       icon: '🌐',
       component: async () => {
         const module = await import(chrome.runtime.getURL('sidebar/features/TranslationFeature.js'));
@@ -92,7 +97,7 @@ export class SidebarManager {
 
     // 注册AI文献解读功能
     this.featureRegistry.register('qa', {
-      name: 'AI文献解读',
+      name: chrome.i18n.getMessage('featureQA'),
       icon: '🤖',
       component: async () => {
         const module = await import(chrome.runtime.getURL('sidebar/features/QAFeature.js'));
@@ -102,7 +107,7 @@ export class SidebarManager {
 
     // 注册引用功能
     this.featureRegistry.register('citation', {
-      name: '引用',
+      name: chrome.i18n.getMessage('featureCitation'),
       icon: '📝',
       component: async () => {
         const module = await import(chrome.runtime.getURL('sidebar/features/CitationFeature.js'));
@@ -121,10 +126,63 @@ export class SidebarManager {
       closeBtn.addEventListener('click', () => this.hide());
     }
 
+    // 主题切换按钮
+    const themeBtn = document.getElementById('pra-theme-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => this.toggleTheme());
+    }
+
     // 监听标签切换
     this.tabManager.on('tabChange', (featureKey) => {
       this.switchFeature(featureKey);
     });
+  }
+
+  /**
+   * 加载保存的主题偏好
+   */
+  async loadTheme() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(['theme'], (result) => {
+        if (result.theme) {
+          this.currentTheme = result.theme;
+        }
+        this.applyTheme(this.currentTheme);
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * 切换主题
+   */
+  toggleTheme() {
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    this.applyTheme(this.currentTheme);
+    // 保存主题偏好
+    chrome.storage.local.set({ theme: this.currentTheme });
+  }
+
+  /**
+   * 应用主题
+   */
+  applyTheme(theme) {
+    const themeBtn = document.getElementById('pra-theme-btn');
+    if (this.sidebar) {
+      if (theme === 'dark') {
+        this.sidebar.classList.add('dark-mode');
+        if (themeBtn) {
+          themeBtn.textContent = '☀️';
+          themeBtn.title = chrome.i18n.getMessage('lightMode');
+        }
+      } else {
+        this.sidebar.classList.remove('dark-mode');
+        if (themeBtn) {
+          themeBtn.textContent = '🌙';
+          themeBtn.title = chrome.i18n.getMessage('darkMode');
+        }
+      }
+    }
   }
 
   /**

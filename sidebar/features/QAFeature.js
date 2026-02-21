@@ -5,7 +5,7 @@
 
 export class QAFeature {
   constructor() {
-    this.name = 'AI文献解读';
+    this.name = chrome.i18n.getMessage('featureQA');
     this.providers = [];
     this.selectedProvider = null;
     this.selectedModel = null;
@@ -18,32 +18,32 @@ export class QAFeature {
   render(container) {
     container.innerHTML = `
       <div class="pra-feature-panel active" data-feature="qa">
-        <div class="pra-section-title">🤖 AI文献解读</div>
-        
+        <div class="pra-section-title">${chrome.i18n.getMessage('qaLabel')}</div>
+
         <!-- 模型选择区 -->
         <div class="pra-form-group">
-          <label class="pra-label">🧠 选择AI模型</label>
+          <label class="pra-label">${chrome.i18n.getMessage('selectModel')}</label>
           <div class="pra-model-selector">
             <select id="pra-provider-select" class="pra-select">
-              <option value="">-- 选择服务商 --</option>
+              <option value="">${chrome.i18n.getMessage('selectProvider')}</option>
             </select>
             <select id="pra-model-select" class="pra-select" disabled>
-              <option value="">-- 先选择服务商 --</option>
+              <option value="">${chrome.i18n.getMessage('selectProviderFirst')}</option>
             </select>
-            <button id="pra-qa-settings-btn" class="pra-settings-btn" title="API设置">⚙️</button>
+            <button id="pra-qa-settings-btn" class="pra-settings-btn" title="${chrome.i18n.getMessage('apiSettings')}">⚙️</button>
           </div>
           <div id="pra-qa-api-status" class="pra-api-status-mini">
-            <span class="pra-status-text">正在加载...</span>
+            <span class="pra-status-text">${chrome.i18n.getMessage('loading')}</span>
           </div>
         </div>
-        
+
         <!-- 问题输入区 -->
         <div class="pra-form-group">
-          <label class="pra-label">❓ 你的问题</label>
-          <textarea 
-            id="pra-qa-question" 
-            class="pra-textarea" 
-            placeholder="请输入你的问题...&#10;&#10;例如：这篇论文的主要贡献是什么？"
+          <label class="pra-label">${chrome.i18n.getMessage('yourQuestion')}</label>
+          <textarea
+            id="pra-qa-question"
+            class="pra-textarea"
+            placeholder="${chrome.i18n.getMessage('questionPlaceholder')}"
             rows="2"
           ></textarea>
         </div>
@@ -51,33 +51,33 @@ export class QAFeature {
         <!-- 操作按钮 -->
         <div class="pra-button-row">
           <button id="pra-qa-btn" class="pra-btn pra-btn-primary">
-            🚀 提问
+            ${chrome.i18n.getMessage('askButton')}
           </button>
         </div>
 
         <!-- 回答展示区 -->
         <div class="pra-form-group" style="margin-top: 16px;">
           <div class="pra-result-header">
-            <label class="pra-label">💡 AI回答</label>
+            <label class="pra-label">${chrome.i18n.getMessage('aiAnswer')}</label>
             <span id="pra-qa-provider-info" class="pra-provider-info"></span>
           </div>
           <div id="pra-qa-result" class="pra-result-box pra-result-markdown">
-            请先选择AI模型并输入问题...
+            ${chrome.i18n.getMessage('pleaseSelectModelAndQuestion')}
           </div>
           <div class="pra-result-actions" id="pra-qa-actions" style="display: none;">
-            <button id="pra-qa-copy" class="pra-action-btn" title="复制回答">📋 复制</button>
-            <button id="pra-qa-retry" class="pra-action-btn" title="重新回答">🔄 重试</button>
+            <button id="pra-qa-copy" class="pra-action-btn" title="${chrome.i18n.getMessage('copy')}">${chrome.i18n.getMessage('copy')}</button>
+            <button id="pra-qa-retry" class="pra-action-btn" title="${chrome.i18n.getMessage('retry')}">${chrome.i18n.getMessage('retry')}</button>
           </div>
         </div>
 
         <!-- 历史对话 -->
         <div class="pra-history-section">
           <div class="pra-section-title" style="font-size: 14px; margin-top: 20px;">
-            💬 历史对话
-            <button id="pra-qa-clear-history" class="pra-clear-btn" title="清空历史">🗑️</button>
+            ${chrome.i18n.getMessage('historyTitle')}
+            <button id="pra-qa-clear-history" class="pra-clear-btn" title="${chrome.i18n.getMessage('clearHistory')}">${chrome.i18n.getMessage('clearHistory')}</button>
           </div>
           <div id="pra-qa-history" class="pra-history-list">
-            <div class="pra-empty-history">暂无历史对话</div>
+            <div class="pra-empty-history">${chrome.i18n.getMessage('noHistory')}</div>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@ export class QAFeature {
 
     // 加载API提供商信息
     this.loadProviders();
-    
+
     // 绑定事件
     this.bindEvents();
   }
@@ -110,12 +110,12 @@ export class QAFeature {
   updateAPIStatus() {
     const statusEl = document.getElementById('pra-qa-api-status');
     const providerSelect = document.getElementById('pra-provider-select');
-    
+
     if (!statusEl || !providerSelect) return;
 
     // 清空并填充服务商下拉框
-    providerSelect.innerHTML = '<option value="">-- 选择服务商 --</option>';
-    
+    providerSelect.innerHTML = `<option value="">${chrome.i18n.getMessage('selectProvider')}</option>`;
+
     this.providers.forEach(provider => {
       const option = document.createElement('option');
       option.value = provider.id;
@@ -124,7 +124,7 @@ export class QAFeature {
       if (provider.hasKey) {
         option.textContent += ' ✅';
       } else {
-        option.textContent += ' (未配置)';
+        option.textContent += ` ${chrome.i18n.getMessage('notConfiguredShort')}`;
       }
       providerSelect.appendChild(option);
     });
@@ -132,10 +132,10 @@ export class QAFeature {
     // 更新状态文本
     const configuredCount = this.providers.filter(p => p.hasKey).length;
     if (configuredCount === 0) {
-      statusEl.innerHTML = '<span class="pra-status-text">⚠️ 请在设置中配置API Key</span>';
+      statusEl.innerHTML = `<span class="pra-status-text">${chrome.i18n.getMessage('configureAPIKey')}</span>`;
       statusEl.className = 'pra-api-status-mini warning';
     } else {
-      statusEl.innerHTML = `<span class="pra-status-text">✅ 已配置 ${configuredCount} 个服务</span>`;
+      statusEl.innerHTML = `<span class="pra-status-text">${chrome.i18n.getMessage('configuredServices').replace('{count}', configuredCount)}</span>`;
       statusEl.className = 'pra-api-status-mini configured';
     }
   }
@@ -148,19 +148,19 @@ export class QAFeature {
     if (!modelSelect) return;
 
     if (!providerId) {
-      modelSelect.innerHTML = '<option value="">-- 先选择服务商 --</option>';
+      modelSelect.innerHTML = `<option value="">${chrome.i18n.getMessage('selectProviderFirst')}</option>`;
       modelSelect.disabled = true;
       return;
     }
 
     const provider = this.providers.find(p => p.id === providerId);
     if (!provider || !provider.models || provider.models.length === 0) {
-      modelSelect.innerHTML = '<option value="">无可用模型</option>';
+      modelSelect.innerHTML = `<option value="">${chrome.i18n.getMessage('noModels')}</option>`;
       modelSelect.disabled = true;
       return;
     }
 
-    modelSelect.innerHTML = '<option value="">-- 选择模型 --</option>';
+    modelSelect.innerHTML = `<option value="">${chrome.i18n.getMessage('selectModelPlaceholder')}</option>`;
     provider.models.forEach(model => {
       const option = document.createElement('option');
       option.value = model.id;
@@ -171,14 +171,14 @@ export class QAFeature {
       }
       option.textContent = displayText;
       if (model.id === provider.defaultModel) {
-        option.textContent += ' (推荐)';
+        option.textContent += ` ${chrome.i18n.getMessage('recommended')}`;
         option.selected = true;
       }
       modelSelect.appendChild(option);
     });
-    
+
     modelSelect.disabled = false;
-    
+
     // 自动选择默认模型
     this.selectedModel = provider.defaultModel;
     modelSelect.value = provider.defaultModel;
@@ -297,23 +297,23 @@ export class QAFeature {
 
     // 验证模型选择
     if (!this.selectedProvider) {
-      resultBox.innerHTML = '<span class="pra-error">⚠️ 请先选择AI服务商</span>';
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('pleaseSelectAIProvider')}</span>`;
       return;
     }
 
     if (!this.selectedModel) {
-      resultBox.innerHTML = '<span class="pra-error">⚠️ 请选择具体的AI模型</span>';
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('pleaseSelectAIModel')}</span>`;
       return;
     }
 
     if (!question.trim()) {
-      resultBox.innerHTML = '<span class="pra-error">⚠️ 请输入你的问题</span>';
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('pleaseEnterQuestion')}</span>`;
       return;
     }
 
     // 显示加载状态
     this.isLoading = true;
-    resultBox.innerHTML = '<span class="pra-loading">🤔 思考中...</span>';
+    resultBox.innerHTML = `<span class="pra-loading">${chrome.i18n.getMessage('thinking')}</span>`;
     actionsEl.style.display = 'none';
     providerInfo.textContent = '';
 
@@ -331,7 +331,7 @@ export class QAFeature {
         // 显示结果
         resultBox.innerHTML = `<div class="pra-success">${this.formatMarkdown(response.answer)}</div>`;
         actionsEl.style.display = 'flex';
-        
+
         // 显示提供商和模型信息
         const provider = this.providers.find(p => p.id === this.selectedProvider);
         const modelName = provider?.models?.find(m => m.id === this.selectedModel)?.name || this.selectedModel;
@@ -340,10 +340,10 @@ export class QAFeature {
         // 添加到历史记录
         this.addToHistory(question, response.answer);
       } else {
-        resultBox.innerHTML = `<span class="pra-error">❌ 提问失败: ${response.error || '未知错误'}</span>`;
+        resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('askFailed')}: ${response.error || ''}</span>`;
       }
     } catch (error) {
-      resultBox.innerHTML = `<span class="pra-error">❌ 网络错误: ${error.message}</span>`;
+      resultBox.innerHTML = `<span class="pra-error">${chrome.i18n.getMessage('networkError')}: ${error.message}</span>`;
     } finally {
       this.isLoading = false;
     }
@@ -378,14 +378,14 @@ export class QAFeature {
     overlay.innerHTML = `
       <div class="pra-modal">
         <div class="pra-modal-header">
-          <h3>⚙️ API设置</h3>
+          <h3>${chrome.i18n.getMessage('apiSettings')}</h3>
           <button class="pra-modal-close" id="pra-modal-close">&times;</button>
         </div>
         <div class="pra-modal-body">
           <div class="pra-settings-intro">
-            <p>💡 配置API Key后即可使用对应的AI服务。以下服务均提供免费额度：</p>
+            <p>${chrome.i18n.getMessage('apiSettingsIntro')}</p>
           </div>
-          
+
           <div class="pra-provider-list">
             ${this.providers.map(p => `
               <div class="pra-provider-item ${p.hasKey ? 'has-key' : ''}">
@@ -394,17 +394,17 @@ export class QAFeature {
                   <span class="pra-provider-desc">${p.description}</span>
                 </div>
                 <div class="pra-provider-actions">
-                  ${p.hasKey 
-                    ? `<span class="pra-key-status">✅ 已配置</span>
-                       <button class="pra-clear-key-btn" data-provider="${p.id}">清除</button>`
-                    : `<input type="password" class="pra-api-key-input" 
-                         placeholder="输入API Key" data-provider="${p.id}">
-                       <button class="pra-save-key-btn" data-provider="${p.id}">保存</button>`
+                  ${p.hasKey
+                    ? `<span class="pra-key-status">${chrome.i18n.getMessage('configured')}</span>
+                       <button class="pra-clear-key-btn" data-provider="${p.id}">${chrome.i18n.getMessage('clear')}</button>`
+                    : `<input type="password" class="pra-api-key-input"
+                         placeholder="${chrome.i18n.getMessage('enterAPIKey')}" data-provider="${p.id}">
+                       <button class="pra-save-key-btn" data-provider="${p.id}">${chrome.i18n.getMessage('save')}</button>`
                   }
                 </div>
                 ${p.getApiKeyUrl ? `
                   <a href="${p.getApiKeyUrl}" target="_blank" class="pra-get-key-link">
-                    获取免费API Key →
+                    ${chrome.i18n.getMessage('getFreeAPIKey')}
                   </a>
                 ` : ''}
               </div>
@@ -412,8 +412,8 @@ export class QAFeature {
           </div>
 
           <div class="pra-settings-note">
-            <p>🔒 API Key仅存储在本地浏览器中，不会上传到任何服务器</p>
-            <p>📌 推荐使用 <strong>Groq</strong>，速度快且免费额度充足</p>
+            <p>${chrome.i18n.getMessage('apiKeyLocalOnly')}</p>
+            <p>${chrome.i18n.getMessage('recommendGroq')}</p>
           </div>
         </div>
       </div>
@@ -440,11 +440,11 @@ export class QAFeature {
         const apiKey = input.value.trim();
 
         if (!apiKey) {
-          alert('请输入API Key');
+          alert(chrome.i18n.getMessage('pleaseEnterAPIKey'));
           return;
         }
 
-        btn.textContent = '保存中...';
+        btn.textContent = chrome.i18n.getMessage('saving');
         btn.disabled = true;
 
         try {
@@ -458,17 +458,17 @@ export class QAFeature {
             // 更新本地状态
             const provider = this.providers.find(p => p.id === providerId);
             if (provider) provider.hasKey = true;
-            
+
             this.updateAPIStatus();
             overlay.remove();
             this.showSettings(); // 刷新设置界面
           } else {
-            alert('保存失败');
+            alert(chrome.i18n.getMessage('saveFailed'));
           }
         } catch (error) {
-          alert('保存失败: ' + error.message);
+          alert(chrome.i18n.getMessage('saveFailed') + ': ' + error.message);
         } finally {
-          btn.textContent = '保存';
+          btn.textContent = chrome.i18n.getMessage('save');
           btn.disabled = false;
         }
       });
@@ -478,8 +478,8 @@ export class QAFeature {
     overlay.querySelectorAll('.pra-clear-key-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const providerId = btn.dataset.provider;
-        
-        if (confirm('确定要清除该API Key吗？')) {
+
+        if (confirm(chrome.i18n.getMessage('confirmClearKey'))) {
           await chrome.runtime.sendMessage({
             action: 'clearAIApiKey',
             providerId
@@ -488,7 +488,7 @@ export class QAFeature {
           // 更新本地状态
           const provider = this.providers.find(p => p.id === providerId);
           if (provider) provider.hasKey = false;
-          
+
           this.updateAPIStatus();
           overlay.remove();
           this.showSettings(); // 刷新设置界面
@@ -506,15 +506,15 @@ export class QAFeature {
 
     try {
       await navigator.clipboard.writeText(text);
-      
+
       const copyBtn = document.getElementById('pra-qa-copy');
       const originalText = copyBtn.textContent;
-      copyBtn.textContent = '✅ 已复制';
+      copyBtn.textContent = chrome.i18n.getMessage('copied');
       setTimeout(() => {
         copyBtn.textContent = originalText;
       }, 2000);
     } catch (error) {
-      alert('复制失败');
+      alert(chrome.i18n.getMessage('copyFailed'));
     }
   }
 
@@ -555,9 +555,9 @@ export class QAFeature {
    * 清空历史记录
    */
   clearHistory() {
-    if (confirm('确定要清空所有历史对话吗？')) {
+    if (confirm(chrome.i18n.getMessage('confirmClearHistory'))) {
       const historyList = document.getElementById('pra-qa-history');
-      historyList.innerHTML = '<div class="pra-empty-history">暂无历史对话</div>';
+      historyList.innerHTML = `<div class="pra-empty-history">${chrome.i18n.getMessage('noHistory')}</div>`;
     }
   }
 

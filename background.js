@@ -1,4 +1,4 @@
-// Background service worker for Paper精读全能助手
+// Background service worker for Paper Reading Assistant
 
 // ==================== AI问答服务配置 ====================
 /**
@@ -8,34 +8,34 @@
 // AI提供商配置 - 每个提供商支持多个模型
 const AI_PROVIDERS = {
   groq: {
-    name: 'Groq（需梯子）',
+    name: () => chrome.i18n.getMessage('groqProvider'),
     priority: 1,
     requiresKey: true,
     enabled: true,
     endpoint: 'https://api.groq.com/openai/v1/chat/completions',
     models: [
-      { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B', description: '高性能模型' },
-      { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B', description: '轻量快速' },
-      { id: 'qwen/qwen3-32b', name: 'Qwen3 32B', description: '通义千问' },
-      { id: 'openai/gpt-oss-20b', name: 'GPT-OSS 20B', description: 'OpenAI开源' }
+      { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B', description: () => chrome.i18n.getMessage('highPerformanceModel') },
+      { id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B', description: () => chrome.i18n.getMessage('lightweightFast') },
+      { id: 'qwen/qwen3-32b', name: 'Qwen3 32B', description: () => chrome.i18n.getMessage('qwenModel') },
+      { id: 'openai/gpt-oss-20b', name: 'GPT-OSS 20B', description: () => chrome.i18n.getMessage('openSourceModel') }
     ],
     defaultModel: 'llama-3.3-70b-versatile',
-    description: '高速推理，免费使用',
+    description: () => chrome.i18n.getMessage('fastInferenceFree'),
     getApiKeyUrl: 'https://console.groq.com/keys'
   },
   huggingface: {
-    name: 'Hugging Face（需梯子）',
+    name: () => chrome.i18n.getMessage('huggingfaceProvider'),
     priority: 2,
     requiresKey: true,
     enabled: true,
     endpoint: 'https://router.huggingface.co/v1/chat/completions',
     models: [
-      { id: 'Qwen/Qwen2.5-72B-Instruct', name: 'Qwen 2.5 72B', description: '阿里大模型' },
-      { id: 'meta-llama/Llama-3.3-70B-Instruct', name: 'Llama 3.3 70B', description: 'Meta开源' },
-      { id: 'deepseek-ai/DeepSeek-V3', name: 'DeepSeek V3', description: 'DeepSeek大模型' }
+      { id: 'Qwen/Qwen2.5-72B-Instruct', name: 'Qwen 2.5 72B', description: () => chrome.i18n.getMessage('alibabaModel') },
+      { id: 'meta-llama/Llama-3.3-70B-Instruct', name: 'Llama 3.3 70B', description: () => chrome.i18n.getMessage('metaOpenSource') },
+      { id: 'deepseek-ai/DeepSeek-V3', name: 'DeepSeek V3', description: () => chrome.i18n.getMessage('deepSeekModel') }
     ],
     defaultModel: 'Qwen/Qwen2.5-72B-Instruct',
-    description: '开源模型丰富',
+    description: () => chrome.i18n.getMessage('richOpenSourceModels'),
     getApiKeyUrl: 'https://huggingface.co/settings/tokens'
   }
 };
@@ -44,15 +44,8 @@ const AI_PROVIDERS = {
 let aiApiKeys = {};
 let currentAIProvider = null;
 
-// AI系统提示词
-const AI_SYSTEM_PROMPT = `你是一个专业的学术论文解读助手。你的任务是：
-1. 准确理解用户提供的论文内容
-2. 用专业但易懂的语言回答问题
-3. 引用论文中的具体内容来支持你的回答
-4. 如果问题超出论文范围，请诚实告知
-5. 回答要简洁明了，突出重点
-
-请始终保持专业、客观的态度。`;
+// AI系统提示词 - 根据浏览器语言动态获取
+const AI_SYSTEM_PROMPT = () => chrome.i18n.getMessage('aiSystemPrompt');
 
 /**
  * AI问答主入口 - 支持指定提供商和模型
@@ -62,55 +55,57 @@ const AI_SYSTEM_PROMPT = `你是一个专业的学术论文解读助手。你的
  */
 async function askQuestion(context, question, options = {}) {
   const { providerId: selectedProvider, modelId: selectedModel } = options;
-  
+
   // 如果用户指定了提供商和模型，直接使用
   if (selectedProvider && selectedModel && AI_PROVIDERS[selectedProvider]) {
     const config = AI_PROVIDERS[selectedProvider];
     const apiKey = aiApiKeys[selectedProvider];
-    
+    const providerName = typeof config.name === 'function' ? config.name() : config.name;
+
     if (config.requiresKey && !apiKey) {
       return {
         success: false,
-        error: `请先在设置中配置 ${config.name} 的 API Key`
+        error: chrome.i18n.getMessage('configureProviderAPI').replace('{provider}', providerName)
       };
     }
-    
+
     try {
-      console.log(`使用指定模型: ${config.name} / ${selectedModel}`);
+      console.log(`使用指定模型: ${providerName} / ${selectedModel}`);
       const result = await callExternalAI(selectedProvider, config, context, question, apiKey, selectedModel);
       currentAIProvider = selectedProvider;
       return result;
     } catch (error) {
-      console.error(`${config.name} 调用失败:`, error);
+      console.error(`${providerName} 调用失败:`, error);
       return {
         success: false,
-        error: formatErrorMessage(error, config.name)
+        error: formatErrorMessage(error, providerName)
       };
     }
   }
-  
+
   // 如果只指定了提供商，使用该提供商的默认模型
   if (selectedProvider && AI_PROVIDERS[selectedProvider]) {
     const config = AI_PROVIDERS[selectedProvider];
     const apiKey = aiApiKeys[selectedProvider];
-    
+    const providerName = typeof config.name === 'function' ? config.name() : config.name;
+
     if (config.requiresKey && !apiKey) {
       return {
         success: false,
-        error: `请先在设置中配置 ${config.name} 的 API Key`
+        error: chrome.i18n.getMessage('configureProviderAPI').replace('{provider}', providerName)
       };
     }
-    
+
     try {
-      console.log(`使用指定提供商: ${config.name}`);
+      console.log(`使用指定提供商: ${providerName}`);
       const result = await callExternalAI(selectedProvider, config, context, question, apiKey, config.defaultModel);
       currentAIProvider = selectedProvider;
       return result;
     } catch (error) {
-      console.error(`${config.name} 调用失败:`, error);
+      console.error(`${providerName} 调用失败:`, error);
       return {
         success: false,
-        error: formatErrorMessage(error, config.name)
+        error: formatErrorMessage(error, providerName)
       };
     }
   }
@@ -123,24 +118,25 @@ async function askQuestion(context, question, options = {}) {
   if (providers.length === 0) {
     return {
       success: false,
-      error: '请先在设置中配置至少一个 AI 服务的 API Key'
+      error: chrome.i18n.getMessage('configureAPIFirst')
     };
   }
 
   // 使用第一个已配置的提供商
   const [providerId, config] = providers[0];
   const apiKey = aiApiKeys[providerId];
-  
+  const providerName = typeof config.name === 'function' ? config.name() : config.name;
+
   try {
-    console.log(`使用默认提供商: ${config.name}`);
+    console.log(`使用默认提供商: ${providerName}`);
     const result = await callExternalAI(providerId, config, context, question, apiKey, config.defaultModel);
     currentAIProvider = providerId;
     return result;
   } catch (error) {
-    console.error(`${config.name} 调用失败:`, error);
+    console.error(`${providerName} 调用失败:`, error);
     return {
       success: false,
-      error: formatErrorMessage(error, config.name)
+      error: formatErrorMessage(error, providerName)
     };
   }
 }
@@ -151,21 +147,21 @@ async function askQuestion(context, question, options = {}) {
 function formatErrorMessage(error, providerName) {
   let errorMessage = error.message;
   if (errorMessage.includes('503')) {
-    return `${providerName} 服务繁忙，请稍后重试`;
+    return chrome.i18n.getMessage('providerBusy').replace('{provider}', providerName);
   } else if (errorMessage.includes('401') || errorMessage.includes('403')) {
-    return `${providerName} API Key 无效或已过期，请检查设置`;
+    return chrome.i18n.getMessage('apiKeyInvalid').replace('{provider}', providerName);
   } else if (errorMessage.includes('404')) {
-    return `${providerName} 模型不存在或已下线，请尝试其他模型`;
+    return chrome.i18n.getMessage('modelNotFound').replace('{provider}', providerName);
   } else if (errorMessage.includes('429')) {
     // 尝试解析速率限制信息
     if (errorMessage.includes('rate limit') || errorMessage.includes('quota') || errorMessage.includes('limit')) {
-      return `${providerName} 已达到调用次数上限，请稍后再试或更换其他模型`;
+      return chrome.i18n.getMessage('rateLimitExceeded').replace('{provider}', providerName);
     }
-    return `${providerName} 请求过于频繁，请稍后再试`;
+    return chrome.i18n.getMessage('tooManyRequests').replace('{provider}', providerName);
   } else if (errorMessage.includes('insufficient_quota') || errorMessage.includes('exceeded')) {
-    return `${providerName} 已达到调用次数上限，请稍后再试或更换其他模型`;
+    return chrome.i18n.getMessage('rateLimitExceeded').replace('{provider}', providerName);
   }
-  return `${providerName} 调用失败: ${errorMessage}`;
+  return `${chrome.i18n.getMessage('providerCallFailed').replace('{provider}', providerName)}: ${errorMessage}`;
 }
 
 /**
@@ -173,15 +169,15 @@ function formatErrorMessage(error, providerName) {
  */
 async function callExternalAI(providerId, config, context, question, apiKey, modelId) {
   const model = modelId || config.defaultModel;
-  
+
   const messages = [
-    { role: 'system', content: AI_SYSTEM_PROMPT }
+    { role: 'system', content: AI_SYSTEM_PROMPT() }
   ];
 
   if (context && context.trim()) {
     messages.push({
       role: 'user',
-      content: `论文内容：\n${context}\n\n问题：${question}`
+      content: `${chrome.i18n.getMessage('paperContent')}\n${context}\n\n${chrome.i18n.getMessage('questionLabel')}${question}`
     });
   } else {
     messages.push({ role: 'user', content: question });
@@ -218,7 +214,7 @@ async function callExternalAI(providerId, config, context, question, apiKey, mod
   
   return {
     success: true,
-    answer: data.choices?.[0]?.message?.content || '未能获取回答',
+    answer: data.choices?.[0]?.message?.content || chrome.i18n.getMessage('noAnswerReceived'),
     provider: config.name,
     model: model
   };
@@ -230,13 +226,16 @@ async function callExternalAI(providerId, config, context, question, apiKey, mod
 function getAIProvidersConfig() {
   return Object.entries(AI_PROVIDERS).map(([id, config]) => ({
     id,
-    name: config.name,
+    name: typeof config.name === 'function' ? config.name() : config.name,
     priority: config.priority,
     requiresKey: config.requiresKey,
-    description: config.description,
+    description: typeof config.description === 'function' ? config.description() : config.description,
     getApiKeyUrl: config.getApiKeyUrl,
     hasKey: !!aiApiKeys[id],
-    models: config.models || [],
+    models: (config.models || []).map(m => ({
+      ...m,
+      description: typeof m.description === 'function' ? m.description() : m.description
+    })),
     defaultModel: config.defaultModel
   }));
 }
@@ -273,15 +272,15 @@ chrome.storage.local.get(['aiApiKeys'], (result) => {
 // 翻译服务配置 - 可扩展的翻译API
 const TRANSLATION_SERVICES = {
   google: {
-    name: 'Google翻译',
+    name: () => chrome.i18n.getMessage('googleTranslate'),
     endpoint: 'https://translate.googleapis.com/translate_a/single'
   },
   bing: {
-    name: 'Bing翻译',
+    name: () => chrome.i18n.getMessage('bingTranslate'),
     endpoint: 'https://api.cognitive.microsofttranslator.com/translate'
   },
   libre: {
-    name: 'LibreTranslate（免费开源）',
+    name: () => chrome.i18n.getMessage('libreTranslate'),
     endpoint: 'https://libretranslate.com/translate'
   }
 };
@@ -295,7 +294,7 @@ async function googleTranslate(text, from, to) {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Google翻译API请求失败: ${response.status}`);
+      throw new Error(`${chrome.i18n.getMessage('googleTranslateAPIError')}: ${response.status}`);
     }
 
     const data = await response.json();
@@ -332,7 +331,7 @@ async function bingTranslate(text, from, to) {
     });
 
     if (!translateResponse.ok) {
-      throw new Error(`Bing翻译API请求失败: ${translateResponse.status}`);
+      throw new Error(`${chrome.i18n.getMessage('bingTranslateAPIError')}: ${translateResponse.status}`);
     }
 
     const data = await translateResponse.json();
@@ -374,14 +373,14 @@ async function libreTranslate(text, from, to) {
     });
 
     if (!translateResponse.ok) {
-      throw new Error(`LibreTranslate API请求失败: ${translateResponse.status}`);
+      throw new Error(`${chrome.i18n.getMessage('libreTranslateAPIError')}: ${translateResponse.status}`);
     }
 
     const data = await translateResponse.json();
 
     // LibreTranslate返回的数据结构: { translatedText: "译文" }
     if (!data || !data.translatedText) {
-      throw new Error('LibreTranslate返回数据格式错误');
+      throw new Error(chrome.i18n.getMessage('libreTranslateDataError'));
     }
 
     const translatedText = data.translatedText;
@@ -407,12 +406,12 @@ async function translateText(text, from, to, provider = 'google') {
     case 'libre':
       return libreTranslate(text, from, to);
     default:
-      throw new Error(`不支持的翻译服务: ${provider}`);
+      throw new Error(`${chrome.i18n.getMessage('unsupportedTranslationService')}: ${provider}`);
   }
 }
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Paper精读全能助手已安装');
+  console.log(chrome.i18n.getMessage('paperReadingAssistantInstalled'));
 });
 
 chrome.action.onClicked.addListener((tab) => {
@@ -495,13 +494,13 @@ const CROSSREF_API = {
  * 参考: https://api.crossref.org/swagger-ui/index.html
  */
 const CITATION_STYLES = {
-  apa: { name: 'APA格式', accept: 'text/bibliography; style=apa' },
-  mla: { name: 'MLA格式', accept: 'text/bibliography; style=modern-language-association' },
-  chicago: { name: 'Chicago格式', accept: 'text/bibliography; style=chicago-author-date' },
-  harvard: { name: 'Harvard格式', accept: 'text/bibliography; style=harvard-cite-them-right' },
-  ieee: { name: 'IEEE格式', accept: 'text/bibliography; style=ieee' },
-  vancouver: { name: 'Vancouver格式', accept: 'text/bibliography; style=vancouver' },
-  bibtex: { name: 'BibTeX格式', accept: 'application/x-bibtex' }
+  apa: { name: () => chrome.i18n.getMessage('apaFormat'), accept: 'text/bibliography; style=apa' },
+  mla: { name: () => chrome.i18n.getMessage('mlaFormat'), accept: 'text/bibliography; style=modern-language-association' },
+  chicago: { name: () => chrome.i18n.getMessage('chicagoFormat'), accept: 'text/bibliography; style=chicago-author-date' },
+  harvard: { name: () => chrome.i18n.getMessage('harvardFormat'), accept: 'text/bibliography; style=harvard-cite-them-right' },
+  ieee: { name: () => chrome.i18n.getMessage('ieeeFormat'), accept: 'text/bibliography; style=ieee' },
+  vancouver: { name: () => chrome.i18n.getMessage('vancouverFormat'), accept: 'text/bibliography; style=vancouver' },
+  bibtex: { name: () => chrome.i18n.getMessage('bibtexFormat'), accept: 'application/x-bibtex' }
 };
 
 /**
@@ -562,7 +561,7 @@ async function getCitationMetadata(doi) {
   try {
     // 验证DOI
     if (!doi) {
-      throw new Error('DOI不能为空');
+      throw new Error(chrome.i18n.getMessage('doiEmpty'));
     }
 
     // 清理DOI中的常见前缀
@@ -598,20 +597,20 @@ async function getCitationMetadata(doi) {
       console.error('Crossref API错误响应:', errorText);
 
       if (response.status === 404) {
-        throw new Error(`未找到该文献: ${cleanDOI}`);
+        throw new Error(`${chrome.i18n.getMessage('paperNotFound')}: ${cleanDOI}`);
       } else if (response.status === 429) {
-        throw new Error('Crossref API请求过于频繁，请稍后再试');
+        throw new Error(chrome.i18n.getMessage('crossrefRateLimit'));
       } else if (response.status === 400) {
-        throw new Error(`请求参数错误。DOI格式不正确: ${cleanDOI}`);
+        throw new Error(`${chrome.i18n.getMessage('doiFormatError')}: ${cleanDOI}`);
       }
-      throw new Error(`获取文献元数据失败 (${response.status})`);
+      throw new Error(`${chrome.i18n.getMessage('getMetadataFailed')} (${response.status})`);
     }
 
     const data = await response.json();
     const item = data.message;
 
     if (!item) {
-      throw new Error('返回的文献数据为空');
+      throw new Error(chrome.i18n.getMessage('emptyPaperData'));
     }
 
     // 转换为CSL-JSON格式（citation.js标准格式）
@@ -684,7 +683,7 @@ async function getCitation(doi, style) {
     // 获取样式配置
     const styleConfig = CITATION_STYLES[style];
     if (!styleConfig) {
-      throw new Error(`不支持的引用格式: ${style}`);
+      throw new Error(`${chrome.i18n.getMessage('unsupportedCitationFormat')}: ${style}`);
     }
 
     // 清理DOI
@@ -720,11 +719,11 @@ async function getCitation(doi, style) {
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error(`未找到该DOI，请检查DOI是否有效`);
+        throw new Error(chrome.i18n.getMessage('doiNotFound'));
       } else if (response.status === 406) {
-        throw new Error(`Crossref不支持该引用格式: ${styleConfig.name}`);
+        throw new Error(`${chrome.i18n.getMessage('citationFormatUnsupported')}: ${typeof styleConfig.name === 'function' ? styleConfig.name() : styleConfig.name}`);
       }
-      throw new Error(`引用获取失败 (${response.status})，请稍后重试`);
+      throw new Error(`${chrome.i18n.getMessage('citationFetchFailed')} (${response.status})`);
     }
 
     // 获取格式化引用文本，并清理空白字符

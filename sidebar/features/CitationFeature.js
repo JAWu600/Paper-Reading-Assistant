@@ -4,7 +4,7 @@
  */
 export class CitationFeature {
   constructor() {
-    this.name = '引用';
+    this.name = chrome.i18n.getMessage('featureCitation');
     this.doi = null;
     this.metadata = null;
     this.citations = {}; // 缓存已获取的引用格式
@@ -16,67 +16,67 @@ export class CitationFeature {
   render(container) {
     container.innerHTML = `
       <div class="pra-feature-panel active" data-feature="citation">
-        <div class="pra-section-title">📝 引用</div>
-        
+        <div class="pra-section-title">${chrome.i18n.getMessage('citationLabel')}</div>
+
         <div class="pra-info-text" style="margin-bottom: 12px; color: #666; font-size: 13px;">
-          自动识别页面DOI，获取文献信息并生成引用
+          ${chrome.i18n.getMessage('autoIdentifyPaper')}
         </div>
 
         <button id="pra-citation-fetch-btn" class="pra-btn pra-btn-primary" style="width: 100%;">
-          🔍 自动识别并获取文献
+          ${chrome.i18n.getMessage('fetchPaper')}
         </button>
 
         <div id="pra-citation-paper-info" style="display: none; margin-top: 16px;">
           <div class="pra-form-group">
-            <label class="pra-label">文献标题</label>
-            <input 
-              type="text" 
-              id="pra-citation-title" 
-              class="pra-input" 
+            <label class="pra-label">${chrome.i18n.getMessage('paperTitle')}</label>
+            <input
+              type="text"
+              id="pra-citation-title"
+              class="pra-input"
               readonly
             >
           </div>
 
           <div class="pra-form-group">
             <label class="pra-label">DOI</label>
-            <input 
-              type="text" 
-              id="pra-citation-doi" 
-              class="pra-input" 
+            <input
+              type="text"
+              id="pra-citation-doi"
+              class="pra-input"
               readonly
             >
           </div>
 
           <div class="pra-form-group">
-            <label class="pra-label">引用格式</label>
+            <label class="pra-label">${chrome.i18n.getMessage('citationStyle')}</label>
             <select id="pra-citation-style" class="pra-select">
-              <option value="apa">APA格式</option>
-              <option value="mla">MLA格式</option>
-              <option value="chicago">Chicago格式</option>
-              <option value="harvard">Harvard格式</option>
-              <option value="ieee">IEEE格式</option>
-              <option value="vancouver">Vancouver格式</option>
-              <option value="bibtex">BibTeX格式</option>
+              <option value="apa">${chrome.i18n.getMessage('apaFormat')}</option>
+              <option value="mla">${chrome.i18n.getMessage('mlaFormat')}</option>
+              <option value="chicago">${chrome.i18n.getMessage('chicagoFormat')}</option>
+              <option value="harvard">${chrome.i18n.getMessage('harvardFormat')}</option>
+              <option value="ieee">${chrome.i18n.getMessage('ieeeFormat')}</option>
+              <option value="vancouver">${chrome.i18n.getMessage('vancouverFormat')}</option>
+              <option value="bibtex">${chrome.i18n.getMessage('bibtexFormat')}</option>
             </select>
           </div>
 
           <div id="pra-citation-result-container" style="display: none;">
             <div class="pra-form-group">
-              <label class="pra-label">引用结果</label>
+              <label class="pra-label">${chrome.i18n.getMessage('citationResult')}</label>
               <div id="pra-citation-result" class="pra-result-box">
               </div>
             </div>
 
-            <button 
-              id="pra-citation-copy-btn" 
-              class="pra-btn pra-btn-secondary" 
+            <button
+              id="pra-citation-copy-btn"
+              class="pra-btn pra-btn-secondary"
               style="width: 100%; margin-top: 12px;"
             >
-              📋 复制引用
+              ${chrome.i18n.getMessage('copyCitation')}
             </button>
 
             <div style="margin-top: 12px; padding: 8px; background: #f5f5f5; border-radius: 4px; font-size: 12px; color: #666; text-align: center;">
-              📚 引用格式由 <a href="https://www.crossref.org" target="_blank" style="color: #1976d2; text-decoration: none;">Crossref</a> 提供
+              📚 <a href="https://www.crossref.org" target="_blank" style="color: #1976d2; text-decoration: none;">Crossref</a>
             </div>
           </div>
         </div>
@@ -132,14 +132,14 @@ export class CitationFeature {
 
     // 显示加载状态
     fetchBtn.disabled = true;
-    fetchBtn.textContent = '⏳ 正在识别...';
+    fetchBtn.textContent = chrome.i18n.getMessage('identifying');
 
     try {
       // 第1步：从页面提取DOI
       const doi = this.extractDOI();
 
       if (!doi) {
-        throw new Error('无法从当前页面提取DOI。请确保页面包含文献的DOI信息。');
+        throw new Error(chrome.i18n.getMessage('cannotExtractDOI'));
       }
 
       this.doi = doi;
@@ -158,7 +158,7 @@ export class CitationFeature {
       this.metadata = metadataResponse.data;
 
       // 显示文献信息
-      document.getElementById('pra-citation-title').value = this.metadata.title || '未知标题';
+      document.getElementById('pra-citation-title').value = this.metadata.title || chrome.i18n.getMessage('unknownTitle');
       document.getElementById('pra-citation-doi').value = this.doi;
       paperInfoDiv.style.display = 'block';
 
@@ -175,7 +175,7 @@ export class CitationFeature {
       errorDiv.querySelector('.pra-error-box').textContent = error.message;
     } finally {
       fetchBtn.disabled = false;
-      fetchBtn.textContent = '🔍 重新识别文献';
+      fetchBtn.textContent = chrome.i18n.getMessage('reIdentifyPaper');
     }
   }
 
@@ -285,7 +285,7 @@ export class CitationFeature {
     }
 
     const resultBox = document.getElementById('pra-citation-result');
-    resultBox.textContent = '⏳ 正在生成引用格式...';
+    resultBox.textContent = chrome.i18n.getMessage('generatingCitation');
 
     try {
       const response = await chrome.runtime.sendMessage({
@@ -304,7 +304,7 @@ export class CitationFeature {
 
     } catch (error) {
       console.error(`获取${style}格式引用失败:`, error);
-      this.citations[style] = `获取失败: ${error.message}`;
+      this.citations[style] = `${chrome.i18n.getMessage('citationFormatFailed')}: ${error.message}`;
       return this.citations[style];
     }
   }
@@ -321,7 +321,7 @@ export class CitationFeature {
     if (citation) {
       resultBox.textContent = citation;
     } else {
-      resultBox.textContent = '无法获取该格式的引用';
+      resultBox.textContent = chrome.i18n.getMessage('citationFormatUnavailable');
     }
 
     resultContainer.style.display = 'block';
@@ -348,8 +348,8 @@ export class CitationFeature {
     const resultBox = document.getElementById('pra-citation-result');
     const text = resultBox.textContent;
 
-    if (!text || text.includes('正在生成') || text.includes('获取失败')) {
-      alert('请先获取有效的引用内容');
+    if (!text || text.includes(chrome.i18n.getMessage('generatingCitation')) || text.includes(chrome.i18n.getMessage('citationFormatFailed'))) {
+      alert(chrome.i18n.getMessage('pleaseGetValidCitation'));
       return;
     }
 
@@ -358,7 +358,7 @@ export class CitationFeature {
 
       const copyBtn = document.getElementById('pra-citation-copy-btn');
       const originalText = copyBtn.textContent;
-      copyBtn.textContent = '✅ 已复制';
+      copyBtn.textContent = chrome.i18n.getMessage('copied');
       setTimeout(() => {
         copyBtn.textContent = originalText;
       }, 2000);
@@ -371,7 +371,7 @@ export class CitationFeature {
       textarea.select();
       document.execCommand('copy');
       document.body.removeChild(textarea);
-      alert('已复制到剪贴板');
+      alert(chrome.i18n.getMessage('copiedToClipboard'));
     }
   }
 
