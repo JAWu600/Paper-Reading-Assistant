@@ -2,13 +2,17 @@
 
 一款专为科研人员打造的 Edge 浏览器扩展，集成 `文本翻译`、`AI文献解读`、`引用生成`三大核心功能，助力高效阅读与理解学术论文。
 
+An Edge browser extension designed for academic researchers, integrating three core features: `text translation`, `AI Q&A`, and `citation generation`, to facilitate efficient reading and understanding of academic papers. 
+
 最新版本支持中文、英文（跟随浏览器默认语言）
+
+如果有问题，欢迎联系我的个人邮箱：augustus_wu@126.com
 
 <img src="figures\cover.png">
 
-An Edge browser extension designed for academic researchers, integrating three core features: `text translation`, `AI Q&A`, and `citation generation`, to facilitate efficient reading and understanding of academic papers. 
-
 New version supports Chinese and English (following browser default language).
+
+If you have any questions, feel free to contact me at my personal email address: augustus_wu@126.com
 
 <img src="figures\cover-en.png">
 
