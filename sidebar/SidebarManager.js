@@ -145,7 +145,29 @@ export class SidebarManager {
     return new Promise((resolve) => {
       chrome.storage.local.get(['theme'], (result) => {
         if (result.theme) {
+          // 用户已设置主题偏好，使用用户的设置
           this.currentTheme = result.theme;
+        } else {
+          // 用户未设置主题偏好，检测系统主题
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            this.currentTheme = 'dark';
+          } else {
+            this.currentTheme = 'light';
+          }
+          
+          // 监听系统主题变化
+          if (window.matchMedia) {
+            const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            darkModeQuery.addEventListener('change', (e) => {
+              // 只有在用户没有设置主题偏好时才跟随系统主题
+              chrome.storage.local.get(['theme'], (result) => {
+                if (!result.theme) {
+                  this.currentTheme = e.matches ? 'dark' : 'light';
+                  this.applyTheme(this.currentTheme);
+                }
+              });
+            });
+          }
         }
         this.applyTheme(this.currentTheme);
         resolve();

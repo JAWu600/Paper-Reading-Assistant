@@ -354,7 +354,20 @@ export class CitationFeature {
     }
 
     try {
-      await navigator.clipboard.writeText(text);
+      // 尝试使用现代剪贴板API
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // 降级方案：使用传统的复制方法
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
 
       const copyBtn = document.getElementById('pra-citation-copy-btn');
       const originalText = copyBtn.textContent;
@@ -364,14 +377,7 @@ export class CitationFeature {
       }, 2000);
     } catch (error) {
       console.error('复制失败:', error);
-      // 使用降级方案
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      alert(chrome.i18n.getMessage('copiedToClipboard'));
+      alert(chrome.i18n.getMessage('copyFailed'));
     }
   }
 

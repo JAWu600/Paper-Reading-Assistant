@@ -244,12 +244,27 @@
   background: white;
   cursor: pointer;
   box-sizing: border-box;
+  /* 添加自定义下拉箭头，确保跨浏览器一致性 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23666' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }
 
 .pra-select:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 下拉选择框选项样式 */
+.pra-select option {
+  padding: 8px 12px;
+  color: #333;
 }
 
 /* 按钮 */
@@ -364,6 +379,15 @@
 }
 
 /* 滚动条美化 */
+/* Firefox滚动条样式 */
+#pra-sidebar-content,
+.pra-result-box,
+.pra-history-list {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 #ffffff;
+}
+
+/* WebKit滚动条样式 */
 .pra-result-box::-webkit-scrollbar,
 .pra-history-list::-webkit-scrollbar {
   width: 6px;
@@ -913,6 +937,15 @@
   background: #16162a;
   border-color: #3d3d5c;
   color: #e0e0e0;
+  /* 确保下拉箭头在深色模式下可见 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }
 
 #paper-reading-assistant-sidebar.dark-mode .pra-select:focus {
@@ -928,6 +961,34 @@
 #paper-reading-assistant-sidebar.dark-mode .pra-select option {
   background: #1a1a2e;
   color: #e0e0e0;
+  font-weight: normal;
+  padding: 8px 12px;
+}
+
+/* 选中状态样式 */
+#paper-reading-assistant-sidebar.dark-mode .pra-select option:checked,
+#paper-reading-assistant-sidebar.dark-mode .pra-select option:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* 浏览器兼容性修复 - WebKit浏览器 */
+#paper-reading-assistant-sidebar.dark-mode .pra-select::-webkit-list-box,
+#paper-reading-assistant-sidebar.dark-mode .pra-select::-webkit-popup-box {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+/* 浏览器兼容性修复 - Mozilla浏览器 */
+#paper-reading-assistant-sidebar.dark-mode .pra-select::-moz-list-option {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+/* 确保占位符文本在深色模式下可见 */
+#paper-reading-assistant-sidebar.dark-mode .pra-select::placeholder {
+  color: #888;
+  opacity: 1;
 }
 
 /* 深色模式 - 按钮 */
@@ -1164,4 +1225,75 @@
 /* 深色模式 - 错误框 */
 #paper-reading-assistant-sidebar.dark-mode .pra-error-box {
   color: #ff6b6b;
+}
+
+/* 深色模式 - 主按钮 */
+#paper-reading-assistant-sidebar.dark-mode .pra-btn-primary {
+  background: linear-gradient(135deg, #5a6fd6 0%, #6b4a9a 100%);
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-btn-primary:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-btn-primary:disabled {
+  background: #2d2d44;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* 深色模式 - 标签按钮 */
+#paper-reading-assistant-sidebar.dark-mode .pra-tab-button {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-tab-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-tab-button.active {
+  background: #2d2d44;
+  color: #e0e0e0;
+}
+
+/* 深色模式 - API状态卡片 */
+#paper-reading-assistant-sidebar.dark-mode .pra-api-status {
+  background: #1a1a2e;
+  border-color: #3d3d5c;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-api-status.configured {
+  background: #1a3a1a;
+  border-color: #2a4a2a;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-api-status.local {
+  background: #3a3a1a;
+  border-color: #4a4a2a;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-api-status.warning {
+  background: #3a1a1a;
+  border-color: #4a2a2a;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-api-status .pra-status-text {
+  color: #b0b0b0;
+}
+
+/* 深色模式 - 保存按钮 */
+#paper-reading-assistant-sidebar.dark-mode .pra-save-key-btn {
+  background: #667eea;
+  color: white;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-save-key-btn:hover {
+  background: #5a6fd6;
+}
+
+#paper-reading-assistant-sidebar.dark-mode .pra-save-key-btn:disabled {
+  background: #3d3d5c;
+  color: #666;
+  cursor: not-allowed;
 }
