@@ -1,4 +1,4 @@
-# Paper精读全能助手 Paper Reading Assistant
+# Paper精读全能助手 Paper Deep Reading Assistant
 
 一款专为科研人员打造的 Edge 浏览器扩展，集成 `文本翻译`、`AI文献解读`、`引用生成`三大核心功能，助力高效阅读与理解学术论文。支持中文、英文（跟随浏览器默认语言）。已经在Edge商店中发布，点击链接可一键安装: https://microsoftedge.microsoft.com/addons/detail/paper%E7%B2%BE%E8%AF%BB%E5%85%A8%E8%83%BD%E5%8A%A9%E6%89%8B/caopenjadgljahlniclfddhnhopaoneo
 
