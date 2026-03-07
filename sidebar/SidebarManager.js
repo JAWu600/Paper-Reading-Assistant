@@ -12,6 +12,14 @@ export class SidebarManager {
     this.isVisible = false;
     this.currentFeature = null;
     this.currentTheme = 'light'; // 默认浅色主题
+
+    // 侧边栏宽度调整相关
+    this.sidebarWidth = 400; // 默认宽度
+    this.minWidth = 280; // 最小宽度
+    this.maxWidth = 600; // 最大宽度
+    this.isResizing = false;
+    this.resizeStartX = 0;
+    this.resizeStartWidth = 0;
   }
 
   /**
@@ -34,12 +42,16 @@ export class SidebarManager {
     }
 
     this.createSidebarElement();
+    this.createResizeHandle();
     this.createOverlayElement();
     this.tabManager = new this.TabManager(this.sidebar);
     this.featureRegistry = new this.FeatureRegistry();
 
     // 加载保存的主题偏好
     await this.loadTheme();
+
+    // 加载保存的宽度
+    await this.loadWidth();
 
     // 注册所有功能
     await this.registerFeatures();
@@ -72,6 +84,152 @@ export class SidebarManager {
     `;
 
     document.body.appendChild(this.sidebar);
+  }
+
+  /**
+   * 创建宽度调整手柄
+   */
+  createResizeHandle() {
+    const resizeHandle = document.createElement('div');
+    resizeHandle.id = 'pra-resize-handle';
+    this.sidebar.appendChild(resizeHandle);
+
+    // 绑定拖动事件
+    this.bindResizeEvents(resizeHandle);
+  }
+
+  /**
+   * 绑定宽度调整事件
+   */
+  bindResizeEvents(resizeHandle) {
+    // 鼠标按下开始拖动
+    resizeHandle.addEventListener('mousedown', (e) => {
+      this.isResizing = true;
+      this.resizeStartX = e.clientX;
+      this.resizeStartWidth = this.sidebar.offsetWidth;
+
+      // 添加拖动中的样式
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+      resizeHandle.classList.add('resizing');
+
+      e.preventDefault();
+    });
+
+    // 鼠标移动
+    document.addEventListener('mousemove', (e) => {
+      if (!this.isResizing) return;
+
+      const deltaX = this.resizeStartX - e.clientX; // 向左拖动为正
+      let newWidth = this.resizeStartWidth + deltaX;
+
+      // 限制宽度范围
+      newWidth = Math.max(this.minWidth, Math.min(this.maxWidth, newWidth));
+
+      this.setSidebarWidth(newWidth);
+    });
+
+    // 鼠标释放结束拖动
+    document.addEventListener('mouseup', () => {
+      if (this.isResizing) {
+        this.isResizing = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+
+        const resizeHandle = document.getElementById('pra-resize-handle');
+        if (resizeHandle) {
+          resizeHandle.classList.remove('resizing');
+        }
+
+        // 保存宽度设置
+        this.saveWidth();
+
+        // 更新页面缩进
+        this.updatePageMargin();
+      }
+    });
+  }
+
+  /**
+   * 设置侧边栏宽度
+   */
+  setSidebarWidth(width) {
+    this.sidebarWidth = width;
+    this.sidebar.style.width = `${width}px`;
+
+    // 自适应字体大小
+    this.adjustFontSize(width);
+  }
+
+  /**
+   * 根据宽度自适应字体大小
+   */
+  adjustFontSize(width) {
+    // 基于基准宽度400px计算缩放比例
+    const baseWidth = 400;
+    const scale = width / baseWidth;
+
+    // 限制缩放范围
+    const clampedScale = Math.max(0.85, Math.min(1.15, scale));
+
+    // 设置CSS变量
+    this.sidebar.style.setProperty('--pra-font-scale', clampedScale);
+  }
+
+  /**
+   * 加载保存的宽度
+   */
+  async loadWidth() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get(['sidebarWidth'], (result) => {
+        if (result.sidebarWidth) {
+          this.sidebarWidth = result.sidebarWidth;
+        }
+        this.setSidebarWidth(this.sidebarWidth);
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * 保存宽度设置
+   */
+  saveWidth() {
+    chrome.storage.local.set({ sidebarWidth: this.sidebarWidth });
+  }
+
+  /**
+   * 更新页面边距
+   */
+  updatePageMargin() {
+    document.body.style.marginRight = `${this.sidebarWidth}px`;
+
+    // 更新容器元素
+    const commonSelectors = [
+      'main',
+      '[role="main"]',
+      '.container',
+      '.content',
+      '.main-content',
+      '#content',
+      '#main',
+      'article',
+      '.article',
+      '.paper',
+      '.paper-container'
+    ];
+
+    commonSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => {
+        if (element.dataset.originalWidth) {
+          const currentMaxWidth = element.dataset.originalWidth || '100%';
+          if (currentMaxWidth !== 'none' && currentMaxWidth !== 'auto') {
+            element.style.maxWidth = `calc(${currentMaxWidth} - ${this.sidebarWidth}px)`;
+          }
+        }
+      });
+    });
   }
 
   /**
@@ -244,10 +402,8 @@ export class SidebarManager {
    * 缩进原始页面，为侧边栏腾出空间
    */
   shrinkOriginalPage() {
-    const SIDEBAR_WIDTH = 400;
-
     // 为document.body添加右margin
-    document.body.style.marginRight = `${SIDEBAR_WIDTH}px`;
+    document.body.style.marginRight = `${this.sidebarWidth}px`;
     document.body.style.transition = 'margin-right 0.3s ease-in-out';
 
     // 尝试修改常见的容器元素
@@ -278,7 +434,7 @@ export class SidebarManager {
         // 设置新的宽度和margin
         const currentMaxWidth = element.dataset.originalWidth || '100%';
         if (currentMaxWidth !== 'none' && currentMaxWidth !== 'auto') {
-          element.style.maxWidth = `calc(${currentMaxWidth} - ${SIDEBAR_WIDTH}px)`;
+          element.style.maxWidth = `calc(${currentMaxWidth} - ${this.sidebarWidth}px)`;
         }
         element.style.transition = 'max-width 0.3s ease-in-out, margin-right 0.3s ease-in-out';
       });

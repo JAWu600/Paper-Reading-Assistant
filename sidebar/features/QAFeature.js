@@ -370,9 +370,13 @@ export class QAFeature {
    * 显示API设置弹窗
    */
   showSettings() {
+    // 检测当前主题
+    const sidebar = document.getElementById('paper-reading-assistant-sidebar');
+    const isDarkMode = sidebar && sidebar.classList.contains('dark-mode');
+
     // 创建设置弹窗
     const overlay = document.createElement('div');
-    overlay.className = 'pra-modal-overlay';
+    overlay.className = 'pra-modal-overlay' + (isDarkMode ? ' dark-mode' : '');
     overlay.id = 'pra-settings-modal';
 
     overlay.innerHTML = `

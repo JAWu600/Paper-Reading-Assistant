@@ -1,18 +1,18 @@
 {
   "extensionName": {
-    "message": "Paper精读全能助手",
+    "message": "科研助读",
     "description": "扩展的名称，显示在浏览器工具栏和扩展管理页面"
   },
   "extensionDescription": {
-    "message": "学术论文精读全能助手，提供文本翻译、AI文献解读、引用生成三大核心功能",
+    "message": "科研助读，提供文本翻译、AI文献解读、引用生成三大核心功能",
     "description": "扩展的详细描述，显示在扩展管理页面和Edge商店"
   },
   "browserActionTitle": {
-    "message": "Paper精读全能助手",
+    "message": "科研助读",
     "description": "浏览器工具栏按钮的悬停提示文本"
   },
   "sidebarTitle": {
-    "message": "📚 Paper精读全能助手",
+    "message": "📚 科研助读",
     "description": "侧边栏标题"
   },
   "featureTranslate": {
@@ -140,7 +140,7 @@
     "description": "未配置状态"
   },
   "versionLabel": {
-    "message": "Version 1.0.0",
+    "message": "Version 1.0.1",
     "description": "版本号显示"
   },
   "selectTextFirst": {
@@ -404,7 +404,7 @@
     "description": "开源模型丰富描述"
   },
   "paperReadingAssistantInstalled": {
-    "message": "Paper精读全能助手已安装",
+    "message": "科研助读已安装",
     "description": "扩展安装提示"
   },
   "configureAPIFirst": {

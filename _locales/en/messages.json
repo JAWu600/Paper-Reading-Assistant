@@ -140,7 +140,7 @@
     "description": "Not configured status"
   },
   "versionLabel": {
-    "message": "Version 1.0.0",
+    "message": "Version 1.0.1",
     "description": "Version display"
   },
   "selectTextFirst": {
